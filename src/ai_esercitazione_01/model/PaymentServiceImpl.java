@@ -1,6 +1,6 @@
 package ai_esercitazione_01.model;
 
-public class Payment implements PaymentService {
+public class PaymentServiceImpl implements PaymentService {
 
 	@Override
 	public boolean doPayment() {

@@ -1,6 +1,6 @@
 package ai_esercitazione_01.model;
 
-public class Login implements LoginService {
+public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public User login(String username, String password) {
