@@ -9,6 +9,13 @@ public class UserDAO {
 	
 	private static Map<String,User> userMap = new ConcurrentHashMap<>();
 	
+	static {
+		User user1 = new User("SheldonCooper", "bazinga");
+		User user2 = new User("Howard Wolowitz", "nasa");
+		userMap.put(user1.getUsername(), user1);
+		userMap.put(user2.getUsername(), user2);
+	}
+	
 	protected UserDAO() {
 	}
 	

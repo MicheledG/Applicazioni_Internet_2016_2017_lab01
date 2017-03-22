@@ -10,7 +10,7 @@ public class User {
 	public User() {
 	}
 	
-	public User(String ID, String username, String password) {
+	public User(String username, String password) {
 		this.ID = String.valueOf(counter++);
 		this.username = username;
 		this.password = password;

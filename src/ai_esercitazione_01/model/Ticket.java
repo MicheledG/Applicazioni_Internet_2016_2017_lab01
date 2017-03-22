@@ -10,7 +10,7 @@ public class Ticket {
 	public Ticket() {
 	}
 	
-	public Ticket(String ID, String type, Double price) {
+	public Ticket(String type, Double price) {
 		this.ID = String.valueOf(counter++);
 		this.type = type;
 		this.price = price;
