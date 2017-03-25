@@ -1,13 +1,17 @@
 package ai_esercitazione_01.model;
 
 public class Ticket {
+	
 	private String ID;
 	private String type;
-	private Double price;
+	private String descrption;
+	private int validity; //in minute
+	private Double price; //in EUR
 	
 	private static int counter = 1;
 	
 	public Ticket() {
+		this.ID = String.valueOf(counter++);
 	}
 	
 	public Ticket(String type, Double price) {
@@ -35,6 +39,22 @@ public class Ticket {
 	}
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getDescrption() {
+		return descrption;
+	}
+
+	public void setDescrption(String descrption) {
+		this.descrption = descrption;
+	}
+
+	public int getValidity() {
+		return validity;
+	}
+
+	public void setValidity(int validity) {
+		this.validity = validity;
 	}
 	
 }

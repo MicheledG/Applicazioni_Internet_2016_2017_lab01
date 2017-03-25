@@ -1,9 +1,13 @@
+<%@page import="ai_esercitazione_01.model.Ticket"%>
+<%@page import="java.util.List"%>
+<%@page import="ai_esercitazione_01.model.TicketService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Esercitazione01</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -11,31 +15,47 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="jumbotron text-center">
-  <h1>My First Bootstrap Page</h1>
-  <p>Resize this responsive page to see the effect!</p> 
-</div>
-  
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 2</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-    <div class="col-sm-4">
-      <h3>Column 3</h3>        
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-    </div>
-  </div>
-</div>
+  	
+  	<% 
+  		TicketService ticketService = (TicketService) getServletContext().getAttribute("ticketService"); 	
+  		if(ticketService == null){
+  			//internal server error -> ticketService should be always present
+  		}
+  		List<Ticket> tickets = ticketService.getTickets();
+  	%>
+  	
+	<div class="container-fluid">
+		
+		<h2 class="text-left">Tickets</h2>
+		<table class="table table-striped">
+	    	<thead>
+	    		<tr>
+    				<th>Type</th>
+		    		<th>Description</th>
+		    		<th>Validity</th>
+		    		<th>Price</th>
+		    		<th>Add to cart</th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+	    		<%for (Ticket ticket:tickets) { %>
+		    	<tr>
+		    		<td><%= ticket.getType()%></td>
+		    		<td><%= ticket.getDescrption()%></td>
+		    		<td><%= ticket.getValidity()%> minuti</td>
+		    		<td><%= Double.toString(ticket.getPrice())%> EUR</td>
+		    		<td>
+		    			<form>
+    						<input type="hidden" name="ticketType" value="<%=ticket.getType()%>"> 
+							<button type="submit" class="btn btn-default">Add</button>
+		    			</form>
+		    		</td>
+		    	</tr>
+		    	<%} %>
+	    	</tbody>
+		</table>
+		
+	</div>
 
 </body>
 </html>
