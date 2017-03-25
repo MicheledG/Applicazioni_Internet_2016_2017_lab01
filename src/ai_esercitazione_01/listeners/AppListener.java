@@ -5,6 +5,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import ai_esercitazione_01.model.Cart;
+import ai_esercitazione_01.model.CartService;
 import ai_esercitazione_01.model.TicketService;
 import ai_esercitazione_01.model.TicketServiceImpl;
 
@@ -16,8 +18,8 @@ public class AppListener implements ServletContextListener, HttpSessionListener 
 //		UsersTable usersTable = new UsersTable();
 //		LoginService loginService = new LoginServiceImpl(usersTable);
 //		arg0.getSession().setAttribute("loginService", loginService);
-//		CartService cartService = new Cart();
-//		arg0.getSession().setAttribute("cartService", cartService);
+		CartService cartService = new Cart();
+		arg0.getSession().setAttribute(CartService.ATTRIBUTE_NAME, cartService);
 	}
 	
 	
@@ -37,7 +39,7 @@ public class AppListener implements ServletContextListener, HttpSessionListener 
 	public void contextInitialized(ServletContextEvent arg0) {
 		//inject ticket service into the app context
 		TicketService ticketService = new TicketServiceImpl();
-		arg0.getServletContext().setAttribute("ticketService", ticketService);
+		arg0.getServletContext().setAttribute(TicketService.ATTRIBUTE_NAME, ticketService);
 	}
 
 }

@@ -1,3 +1,4 @@
+<%@page import="ai_esercitazione_01.controllers.AddToCartServlet"%>
 <%@page import="ai_esercitazione_01.model.Ticket"%>
 <%@page import="java.util.List"%>
 <%@page import="ai_esercitazione_01.model.TicketService"%>
@@ -45,8 +46,8 @@
 		    		<td><%= ticket.getValidity()%> minuti</td>
 		    		<td><%= Double.toString(ticket.getPrice())%> EUR</td>
 		    		<td>
-		    			<form>
-    						<input type="hidden" name="ticketType" value="<%=ticket.getType()%>"> 
+		    			<form action="<%=AddToCartServlet.URL%>" method="post">
+    						<input type="hidden" name="<%=AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID%>" value="<%=ticket.getID()%>"> 
 							<button type="submit" class="btn btn-default">Add</button>
 		    			</form>
 		    		</td>
