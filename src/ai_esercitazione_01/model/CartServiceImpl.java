@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Cart implements CartService {
+public class CartServiceImpl implements CartService {
 	
 	Map<String,Item> itemMap = new ConcurrentHashMap<>();
 

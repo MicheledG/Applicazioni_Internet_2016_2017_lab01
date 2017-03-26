@@ -4,7 +4,7 @@ public class Ticket {
 	
 	private String ID;
 	private String type;
-	private String descrption;
+	private String description;
 	private int validity; //in minute
 	private Double price; //in EUR
 	
@@ -41,12 +41,12 @@ public class Ticket {
 		this.price = price;
 	}
 
-	public String getDescrption() {
-		return descrption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescrption(String descrption) {
-		this.descrption = descrption;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getValidity() {

@@ -12,34 +12,34 @@ public class TicketDAO {
 	
 	protected TicketDAO() {
 		//insert data into the ticket DB
-		Ticket ticket0 = new Ticket();
 		Ticket ticket1 = new Ticket();
 		Ticket ticket2 = new Ticket();
 		Ticket ticket3 = new Ticket();
+		Ticket ticket4 = new Ticket();
 		
-		ticket0.setType("urbano");
-		ticket0.setDescrption("valido su tutti i mezzi di superficie della citt‡");
-		ticket0.setValidity(90);
-		ticket0.setPrice(1.5);
-		ticketMap.put(ticket0.getID(), ticket0);
-		
-		ticket1.setType("suburbano");
-		ticket1.setDescrption("valido su tutti i mezzi di superficie della cintura");
+		ticket1.setType("Urbano");
+		ticket1.setDescription("Valido su tutti i mezzi di superficie della citt√†");
 		ticket1.setValidity(90);
 		ticket1.setPrice(1.5);
 		ticketMap.put(ticket1.getID(), ticket1);
 		
-		ticket2.setType("urbano+suburbano");
-		ticket2.setDescrption("valido su tutti i mezzi di superficie della citt‡ e della cintura");
-		ticket2.setValidity(120);
-		ticket2.setPrice(1.7);
+		ticket2.setType("Suburbano");
+		ticket2.setDescription("Valido su tutti i mezzi di superficie della cintura");
+		ticket2.setValidity(90);
+		ticket2.setPrice(1.5);
 		ticketMap.put(ticket2.getID(), ticket2);
 		
-		ticket3.setType("intera rete");
-		ticket3.setDescrption("valido su tutti i mezzi della citt‡ e della cintura");
+		ticket3.setType("Urbano + Suburbano");
+		ticket3.setDescription("Valido su tutti i mezzi di superficie della citt√† e della cintura");
 		ticket3.setValidity(120);
-		ticket3.setPrice(2.0);
+		ticket3.setPrice(1.7);
 		ticketMap.put(ticket3.getID(), ticket3);
+		
+		ticket4.setType("Intera rete");
+		ticket4.setDescription("Valido su tutti i mezzi della citt√† e della cintura");
+		ticket4.setValidity(120);
+		ticket4.setPrice(2.0);
+		ticketMap.put(ticket4.getID(), ticket4);
 	}
 	
 	public static TicketDAO getInstance() {
