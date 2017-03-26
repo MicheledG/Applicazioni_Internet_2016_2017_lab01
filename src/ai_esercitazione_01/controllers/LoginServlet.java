@@ -18,29 +18,36 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("utente")!=null && request.getParameter("passwd")!=null) {
+		if (request.getSession().getAttribute("utente")!=null) {
+			request.setAttribute("yetLogged", "You are logged-in yet!");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 			
-			String user = request.getParameter("utente").toString();
-			String password = request.getParameter("passwd").toString();
-			
-			LoginService ls = new LoginServiceImpl();			
-			User loggedUser = ls.login(user, password);
-			if (loggedUser == null) {
-				request.setAttribute("loginError", "Login Failed: check user or password.");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
-				//username or password not stored in DB
-			}
-			else {
-				request.getSession().setAttribute("utente", loggedUser);
-				response.sendRedirect("index.jsp");
-				//all ok, the Servlet set the Session Attribute "utente" containing the User just logged
-			}
 		}
 		else {
-			response.sendRedirect("login.jsp");
-			//System.out.print("Non ho preso i dati"); //just for debug, if username or password is null
-			//i could also set an attribute "inputMissing" with a String "Insert username/password too"
+			if (request.getParameter("utente")!=null && request.getParameter("passwd")!=null) {
 			
+				String user = request.getParameter("utente").toString();
+				String password = request.getParameter("passwd").toString();
+			
+				LoginService ls = new LoginServiceImpl();			
+				User loggedUser = ls.login(user, password);
+				if (loggedUser == null) {
+					request.setAttribute("loginError", "Login Failed: check user or password.");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+					//username or password not stored in DB
+				}
+				else {
+					request.getSession().setAttribute("utente", loggedUser);
+					response.sendRedirect("index.jsp");
+					//all ok, the Servlet set the Session Attribute "utente" containing the User just logged
+				}
+			}
+			else {
+				response.sendRedirect("login.jsp");
+				//System.out.print("Non ho preso i dati"); //just for debug, if username or password is null
+				//i could also set an attribute "inputMissing" with a String "Insert username/password too"
+			
+			}
 		}
     }
 }
