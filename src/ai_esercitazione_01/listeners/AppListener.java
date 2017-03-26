@@ -15,9 +15,6 @@ public class AppListener implements ServletContextListener, HttpSessionListener 
 
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0) {
-//		UsersTable usersTable = new UsersTable();
-//		LoginService loginService = new LoginServiceImpl(usersTable);
-//		arg0.getSession().setAttribute("loginService", loginService);
 		CartService cartService = new CartServiceImpl();
 		arg0.getSession().setAttribute(CartService.ATTRIBUTE_NAME, cartService);
 	}
