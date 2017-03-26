@@ -6,7 +6,7 @@
 	pageEncoding="UTF-8"%>
 	
 <% 
-	TicketService ticketService = (TicketService) getServletContext().getAttribute("ticketService"); 	
+	TicketService ticketService = (TicketService) getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME); 	
 	if (ticketService == null) {
 		//internal server error -> ticketService should be always present
 	}
