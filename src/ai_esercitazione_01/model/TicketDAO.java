@@ -10,7 +10,7 @@ public class TicketDAO {
 	
 	private static Map<String,Ticket> ticketMap = new ConcurrentHashMap<>();
 	
-	protected TicketDAO() {
+	static {
 		//insert data into the ticket DB
 		Ticket ticket1 = new Ticket();
 		Ticket ticket2 = new Ticket();
@@ -40,6 +40,9 @@ public class TicketDAO {
 		ticket4.setValidity(120);
 		ticket4.setPrice(2.0);
 		ticketMap.put(ticket4.getID(), ticket4);
+	}
+	
+	protected TicketDAO() {
 	}
 	
 	public static TicketDAO getInstance() {
