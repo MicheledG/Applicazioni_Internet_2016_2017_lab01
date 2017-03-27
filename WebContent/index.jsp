@@ -1,3 +1,5 @@
+<%@page import="ai_esercitazione_01.model.User"%>
+<%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="java.util.List"%>
 <%@page import="ai_esercitazione_01.controllers.AddToCartServlet"%>
 <%@page import="ai_esercitazione_01.model.Ticket"%>
@@ -11,15 +13,22 @@
 		//internal server error -> ticketService should be always present
 	}
 	List<Ticket> tickets = ticketService.getTickets();
+	
+	//check if there is a user logged-in
+	String username = "traveler";
+	User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+	if(user != null){
+		username = user.getUsername();
+	}
+	
 %>
 
 <jsp:include page="header.jsp" flush="true" />
 
 	<div class="jumbotron">
-	  <h1>Hello, traveler!</h1>
+	  <h1>Hello, <%=username %>!</h1>
 	  <!-- <h1>Hello, user_name!</h1> -->
-	  <p>Welcome to our web site, where you can find all the tickets you need, both for single and multiple rides
-	  	 as well as subscriptions at different levels.</p>
+	  <p>Welcome to our web site, where you can find all the tickets you need, both for single and multiple rides as well as subscriptions at different levels.</p>
 	</div>
 	
 	<h2 class="text-left">Tickets</h2>
