@@ -39,7 +39,7 @@
 	    	<tr>
 	    		<td><%= ticket.getType() %></td>
 	    		<td><%= ticket.getDescription() %></td>
-	    		<td><%= ticket.getValidity() %> minuti</td>
+	    		<td><%= ticket.getValidity() %> <%= ticket.getValidityTimeUnit()%></td>
 	    		<td><%= Double.toString(ticket.getPrice()) + "0" %> EUR</td>
 	    		<td>
 	    			<form action="<%= AddToCartServlet.URL %>" method="post">

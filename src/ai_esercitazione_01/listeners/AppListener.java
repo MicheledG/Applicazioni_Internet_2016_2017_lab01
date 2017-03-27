@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSessionListener;
 
 import ai_esercitazione_01.model.CartService;
 import ai_esercitazione_01.model.CartServiceImpl;
+import ai_esercitazione_01.model.LoginService;
+import ai_esercitazione_01.model.LoginServiceImpl;
 import ai_esercitazione_01.model.TicketService;
 import ai_esercitazione_01.model.TicketServiceImpl;
 
@@ -37,6 +39,9 @@ public class AppListener implements ServletContextListener, HttpSessionListener 
 		//inject ticket service into the app context
 		TicketService ticketService = new TicketServiceImpl();
 		arg0.getServletContext().setAttribute(TicketService.ATTRIBUTE_NAME, ticketService);
+		//inject login service into the app context
+		LoginService loginService = new LoginServiceImpl();
+		arg0.getServletContext().setAttribute(LoginService.ATTRIBUTE_NAME, loginService);
 	}
 
 }

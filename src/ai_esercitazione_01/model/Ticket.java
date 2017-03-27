@@ -2,10 +2,14 @@ package ai_esercitazione_01.model;
 
 public class Ticket {
 
-    private String ID;
+    public static final String VALIDITY_TIME_UNIT_MIN = "minutes";
+    public static final String VALIDITY_TIME_UNIT_DAY = "days";
+	
+	private String ID;
     private String type;
     private String description;
-    private int validity; //in minute
+    private int validity;
+    private String validityTimeUnit;
     private Double price; //in EUR
 
     private static int counter = 1;
@@ -55,5 +59,13 @@ public class Ticket {
     public void setValidity(int validity) {
         this.validity = validity;
     }
+
+	public String getValidityTimeUnit() {
+		return validityTimeUnit;
+	}
+
+	public void setValidityTimeUnit(String validityTimeUnit) {
+		this.validityTimeUnit = validityTimeUnit;
+	}
 
 }

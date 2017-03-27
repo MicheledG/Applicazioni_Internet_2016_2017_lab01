@@ -15,20 +15,25 @@ public class TicketDAOStaticImpl implements TicketDAO {
         Ticket ticket4 = new Ticket("Weekly", 15.00);
         Ticket ticket5 = new Ticket("Montly", 32.00);
 
-        ticket1.setDescription("Single ride");
+        ticket1.setDescription("It allows a single ride on a bus within the city area");
         ticket1.setValidity(90);
+        ticket1.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_MIN);
 
-        ticket2.setDescription("Single ride");
+        ticket2.setDescription("It allows a single ride on a bus within the first city-ring area");
         ticket2.setValidity(120);
+        ticket2.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_MIN);
+        
+        ticket3.setDescription("It allows multiple rides in a day on a bus within the city area");
+        ticket3.setValidity(1);
+        ticket3.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_DAY);
+        
+        ticket4.setDescription("It allows multiple rides in a week on a bus within the city area");
+        ticket4.setValidity(7);
+        ticket4.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_DAY);
 
-        ticket3.setDescription("Daily");
-        ticket3.setValidity(1440);
-
-        ticket4.setDescription("Weekly");
-        ticket4.setValidity(10080);
-
-        ticket5.setDescription("Montly");
-        ticket5.setValidity(302400);
+        ticket5.setDescription("It allows multiple rides in a month on a bus within the city area");
+        ticket5.setValidity(28);
+        ticket5.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_DAY);
 
         tickets.put(ticket1.getID(), ticket1);
         tickets.put(ticket2.getID(), ticket2);

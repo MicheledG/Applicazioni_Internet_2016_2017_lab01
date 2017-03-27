@@ -2,12 +2,12 @@ package ai_esercitazione_01.model;
 
 public class LoginServiceImpl implements LoginService {
 
-    UserDAOStaticImpl userDAOStatic = new UserDAOStaticImpl();
+    UserDAO userDAO = new UserDAOStaticImpl();
 
     @Override
     public User login(String username, String password) {
 
-        User user = userDAOStatic.getUser(username);
+        User user = userDAO.getUser(username);
 
         if (user != null && user.getPassword().equals(password)) {
             return user;
