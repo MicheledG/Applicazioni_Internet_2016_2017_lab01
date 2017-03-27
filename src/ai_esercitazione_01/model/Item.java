@@ -5,13 +5,11 @@ public class Item {
 	private Ticket ticket;
 	private Integer quantity;
 	
-	private static int counter = 1;
-	
 	public Item() {
 	}
 	
 	public Item(Ticket ticket, Integer quantity) {
-		this.ID = String.valueOf(counter++);
+		this.ID = ticket.getID();
 		this.ticket = ticket;
 		this.quantity = quantity;
 	}

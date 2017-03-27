@@ -38,13 +38,15 @@ public class AddToCartServlet extends HttpServlet {
 		
 		//ckeck if ticketID is a valid ID
 		if(ticketID != null){
-			//retrieve ticket info
-			Ticket newTicket = ticketService.getTicket(ticketID);
-			if(newTicket != null){
-				// create the new item
-				Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
-				// insert the new item into the cart
-				cartService.addItem(newItem);
+			//check if the ticket is already into the cart
+			if(!cartService.containsItem(ticketID)){
+				//retrieve info about the ticket
+				Ticket newTicket = ticketService.getTicket(ticketID);
+				if(newTicket != null){
+					//insert a new item with this ticket into the cart
+					Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
+					cartService.addItem(newItem);
+				}
 			}
 		}
 		

@@ -15,14 +15,14 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void removeItem(Item item) {
-		itemMap.remove(item.getID());
+	public void removeItem(String ticketId) {
+		itemMap.remove(ticketId);
 		return;
 	}
 
 	@Override
-	public void modifyItem(Item item) {
-		itemMap.replace(item.getID(), item);
+	public void modifyItem(String ticketId, int quantity) {
+		itemMap.get(ticketId).setQuantity(quantity);
 	}
 
 	@Override
@@ -40,6 +40,11 @@ public class CartServiceImpl implements CartService {
 		return itemMap.values().stream()
 				.map(i -> i.getTicket().getPrice() * i.getQuantity())
 				.reduce(0.0, (a,b) -> a+b);
+	}
+
+	@Override
+	public boolean containsItem(String ticketId) {
+		return itemMap.containsKey(ticketId);
 	}
 
 }
