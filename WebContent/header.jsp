@@ -1,3 +1,6 @@
+<%@page import="ai_esercitazione_01.controllers.LogoutServlet"%>
+<%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
+<%@page import="ai_esercitazione_01.model.User"%>
 <%@page import="ai_esercitazione_01.model.CartService"%>
 <%
 	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
@@ -8,7 +11,20 @@
 	else{
 		itemCount = cartService.getItemCount();	
 	}
-
+	
+	//check if there is a user logged-in
+	String urlLoginLogout;
+	String messageLoginLogout;
+	User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+	if(user == null){
+		//TODO
+		urlLoginLogout = "login.jsp";
+		messageLoginLogout = "login";
+	} else {
+		urlLoginLogout = LogoutServlet.URL;
+		messageLoginLogout = "logout";
+	}
+	
 %>
 
 
@@ -53,7 +69,7 @@
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li><a href="index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 	      	<li><a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart (<%=itemCount %>)</a></li>
-	        <li><a href="login.jsp"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Login</a></li>
+	        <li><a href="<%=urlLoginLogout %>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%=messageLoginLogout %></a></li>
 	        <!-- <li><a href="#">Logout</a></li> -->
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
