@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
 				else {
-					//all ok, the Servlet set the Session Attribute "utente" containing the User just logged
+					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
 					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
 					response.sendRedirect("index.jsp");
 				}
