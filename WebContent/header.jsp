@@ -13,14 +13,17 @@
 	}
 	
 	//check if there is a user logged-in
+	String method;
 	String urlLoginLogout;
 	String messageLoginLogout;
 	User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
 	if(user == null){
 		//TODO
+		method = "get";
 		urlLoginLogout = "login.jsp";
 		messageLoginLogout = "login";
 	} else {
+		method = "post";
 		urlLoginLogout = LogoutServlet.URL;
 		messageLoginLogout = "logout";
 	}
@@ -55,12 +58,6 @@
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
 	      <a class="navbar-brand" href="#">TGT Transports</a>
 	    </div>
 	
@@ -69,8 +66,14 @@
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li><a href="index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 	      	<li><a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart (<%=itemCount %>)</a></li>
-	        <li><a href="<%=urlLoginLogout %>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%=messageLoginLogout %></a></li>
-	        <!-- <li><a href="#">Logout</a></li> -->
+	        <li>
+	        	<form action="<%=urlLoginLogout %>" method="<%=method%>">
+	        		<button type="submit" class="btn btn-link">
+	        			<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	        			<%=messageLoginLogout%>
+        			</button>
+	        	</form>
+ 			</li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
