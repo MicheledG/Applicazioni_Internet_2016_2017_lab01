@@ -24,13 +24,6 @@
 
 <jsp:include page="header.jsp" flush="true"/>
 
-<div class="jumbotron">
-    <h1>
-        Hello,
-        <%=username%>!
-    </h1>
-</div>
-
 <h2 class="text-left">My Cart</h2>
 
 <div class="jumbotron">
