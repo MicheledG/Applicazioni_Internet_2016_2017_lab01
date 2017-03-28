@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import ai_esercitazione_01.controllers.LoginServlet;
 
 /**
  * Servlet Filter implementation class AuthFilter
@@ -26,8 +27,8 @@ public class AuthFilter implements Filter {
 
         if (request instanceof HttpServletRequest) {
             HttpSession session = ((HttpServletRequest) request).getSession();
-            if (session.getAttribute("username") == null) {
-                HttpServletResponse res = (HttpServletResponse) response;
+            if (session.getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)==null) {
+   	             HttpServletResponse res = (HttpServletResponse) response;
                 res.sendRedirect("login.jsp");
             } else {
                 chain.doFilter(request, response);

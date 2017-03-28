@@ -31,34 +31,38 @@ public class LoginServlet extends HttpServlet {
     public static final String POST_PARAMETER_PASSWORD = "password";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER) != null) {
-            request.setAttribute("yetLogged", "You are logged-in yet!");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        } else {
-
-            String username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
-            String password = request.getParameter(LoginServlet.POST_PARAMETER_PASSWORD);
-
-            if (username != null && password != null) {
-
-                LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);
-                User loggedUser = loginService.login(username, password);
-
-                if (loggedUser == null) {
-                    //username or password not stored in DB
-                    request.setAttribute("loginError", "Login Failed: check user or password.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                } else {
-                    //all ok, the Servlet set the Session Attribute "utente" containing the User just logged
-                    request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
-                    response.sendRedirect("index.jsp");
-                }
-            } else {
-                //if username or password is null
-                //i could also set an attribute "inputMissing" with a String "Insert username/password too"
-                response.sendRedirect("login.jsp");
-            }
-        }
+		if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
+			request.setAttribute("yetLogged", "You are logged-in yet!");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			
+		}
+		else {
+			
+			String username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
+			String password = request.getParameter(LoginServlet.POST_PARAMETER_PASSWORD); 
+			
+			if (username!=null && password!=null) {
+			
+				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
+				User loggedUser = loginService.login(username, password);
+				
+				if (loggedUser == null) {
+					//username or password not stored in DB
+					request.setAttribute("loginError", "Login Failed: check user or password.");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
+				else {
+					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
+					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
+					response.sendRedirect("index.jsp");
+				}
+			}
+			else {
+				//if username or password is null
+				//i could also set an attribute "inputMissing" with a String "Insert username/password too"
+				response.sendRedirect("login.jsp");
+			}
+		}
     }
 }
