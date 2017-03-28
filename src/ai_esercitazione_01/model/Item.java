@@ -38,4 +38,12 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public void increaseQuantity(int i) {
+        this.quantity += i;
+    }
+
+    public void decreaseQuantity(int i) {
+        this.quantity -= i;
+    }
+
 }
