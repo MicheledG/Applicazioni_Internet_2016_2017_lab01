@@ -47,15 +47,14 @@ public class AddToCartServlet extends HttpServlet {
                     Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
                     cartService.addItem(newItem);
                 }
-
-                // added because if an item already exist must increment the quantity of that item (number doesn't change on the cart)
-            } else {
-                for (Item item : cartService.getItems()) {
-                    if (item.getID().equals(ticketID)) {
-                        item.increaseQuantity(1);
-                    }
-                }
             }
+            //else {
+            //    for (Item item : cartService.getItems()) {
+            //        if (item.getID().equals(ticketID)) {
+            //            item.increaseQuantity(1);
+            //        }
+            //    }
+            //}
         }
 
         request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
