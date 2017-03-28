@@ -1,4 +1,3 @@
-<%@page import="ai_esercitazione_01.controllers.AddToCartServlet" %>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet" %>
 <%@page import="ai_esercitazione_01.model.Ticket" %>
 <%@page import="ai_esercitazione_01.model.TicketService" %>
@@ -25,45 +24,66 @@
 
 <jsp:include page="header.jsp" flush="true"/>
 
-<div class="jumbotron">
-    <h1>Hello, <%=username %>!</h1>
-    <!-- <h1>Hello, user_name!</h1> -->
-    <p>Welcome to our web site, where you can find all the tickets you need, both for single and multiple rides as well
-        as subscriptions at different levels.</p>
-</div>
-
-<h2 class="text-left">Tickets</h2>
+<h2 class="text-left">My Cart</h2>
 
 <table class="table table-striped">
     <thead>
     <tr>
         <th>Type</th>
-        <th>Description</th>
-        <th>Validity</th>
         <th>Price</th>
-        <th>Add to cart</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
     </tr>
     </thead>
     <tbody>
-    <%for (Ticket ticket : tickets) { %>
     <tr>
-        <td><%= ticket.getType() %>
-        </td>
-        <td><%= ticket.getDescription() %>
-        </td>
-        <td><%= ticket.getValidity() %> <%= ticket.getValidityTimeUnit()%>
-        </td>
-        <td><%= Double.toString(ticket.getPrice()) + "0" %> EUR</td>
+        <td>urban</td>
+        <td>1.50 €</td>
         <td>
-            <form action="<%= AddToCartServlet.URL %>" method="post">
-                <input type="hidden" name="<%= AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID %>"
-                       value="<%= ticket.getID() %>">
-                <button type="submit" class="btn btn-default">Add</button>
+            <button>-</button>
+            3
+            <button>+</button>
+        </td>
+        <td>4.50 €</td>
+    </tr>
+    <tr>
+        <td>suburban</td>
+        <td>2.00 €</td>
+        <td>
+            <button>-</button>
+            1
+            <button>+</button>
+        </td>
+        <td>2.00 €</td>
+    </tr>
+    <tr>
+        <td>daily</td>
+        <td>5.00 €</td>
+        <td>
+            <button>-</button>
+            2
+            <button>+</button>
+        </td>
+        <td>10.00 €</td>
+    </tr>
+    <tr >
+        <td colspan="2"></td>
+        <td align="center">TOTAL</td>
+        <td>16.50 €</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <button>Update cart</button>
+        </td>
+        <td>
+            <form method="get" action="checkout.jsp">
+                <button type="submit">Check Out</button>
             </form>
         </td>
     </tr>
-    <%} %>
     </tbody>
 </table>
+
 
 <jsp:include page="footer.jsp" flush="true"/>

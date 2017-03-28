@@ -1,13 +1,14 @@
 package ai_esercitazione_01.controllers;
 
-import java.io.IOException;
+import ai_esercitazione_01.model.LoginService;
+import ai_esercitazione_01.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ai_esercitazione_01.model.LoginService;
-import ai_esercitazione_01.model.User;
+import java.io.IOException;
 
 /**
  * Servlet implementation class LoginServlet
@@ -18,18 +19,19 @@ import ai_esercitazione_01.model.User;
 //e.g. SESSION_ATTRIBUTE_USER used as static final
 //Use these static strings also into the .jsp to avoid writing wrong names
 
-@WebServlet("/"+LoginServlet.URL)
+@WebServlet("/" + LoginServlet.URL)
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    
-	public static final String URL = "login";
-	
-	public static final String SESSION_ATTRIBUTE_USER = "user";
-	
-	public static final String POST_PARAMETER_USERNAME = "username";
-	public static final String POST_PARAMETER_PASSWORD = "password";
-	
+    private static final long serialVersionUID = 1L;
+
+    public static final String URL = "login";
+
+    public static final String SESSION_ATTRIBUTE_USER = "user";
+
+    public static final String POST_PARAMETER_USERNAME = "username";
+    public static final String POST_PARAMETER_PASSWORD = "password";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
 			request.setAttribute("yetLogged", "You are logged-in yet!");
 			request.getRequestDispatcher("login.jsp").forward(request, response);

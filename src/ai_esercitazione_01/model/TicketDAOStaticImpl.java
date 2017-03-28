@@ -13,7 +13,7 @@ public class TicketDAOStaticImpl implements TicketDAO {
         Ticket ticket2 = new Ticket("Suburban", 1.5);
         Ticket ticket3 = new Ticket("Daily", 5.0);
         Ticket ticket4 = new Ticket("Weekly", 15.00);
-        Ticket ticket5 = new Ticket("Montly", 32.00);
+        Ticket ticket5 = new Ticket("Monthly", 32.00);
 
         ticket1.setDescription("It allows a single ride on a bus within the city area");
         ticket1.setValidity(90);
