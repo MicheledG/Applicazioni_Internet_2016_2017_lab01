@@ -83,13 +83,9 @@
             <td>16.50 €</td>
         </tr>
         <tr class="danger">
-            <td colspan="2"></td>
-            <td>
-                <button>Update cart</button>
-            </td>
             <td>
                 <form method="get" action="checkout.jsp">
-                    <button type="submit">Check Out</button>
+                    <button type="submit" class="danger">Check Out</button>
                 </form>
             </td>
         </tr>
