@@ -66,7 +66,7 @@
         </td>
         <td>10.00 €</td>
     </tr>
-    <tr >
+    <tr>
         <td colspan="2"></td>
         <td align="center">TOTAL</td>
         <td>16.50 €</td>
