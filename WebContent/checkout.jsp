@@ -42,50 +42,32 @@
         </thead>
         <tbody>
         <tr>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
             <td>urban</td>
             <td>1.50 €</td>
-            <td>
-                <button>-</button>
-                3
-                <button>+</button>
-            </td>
+            <td>3</td>
             <td>4.50 €</td>
         </tr>
         <tr>
             <td>suburban</td>
             <td>2.00 €</td>
-            <td>
-                <button>-</button>
-                1
-                <button>+</button>
-            </td>
+            <td>1</td>
             <td>2.00 €</td>
         </tr>
         <tr>
             <td>daily</td>
             <td>5.00 €</td>
-            <td>
-                <button>-</button>
-                2
-                <button>+</button>
-            </td>
+            <td>2</td>
             <td>10.00 €</td>
-        </tr>
-        <tr>
-            <td colspan="4"></td>
         </tr>
         <tr >
             <td colspan="2"></td>
             <td align="center">TOTAL</td>
             <td>16.50 €</td>
         </tr>
-        <tr class="danger">
+        <tr>
             <td>
                 <form method="get" action="checkout.jsp">
-                    <button type="submit" class="danger">Check Out</button>
+                    <button type="submit">Check Out</button>
                 </form>
             </td>
         </tr>

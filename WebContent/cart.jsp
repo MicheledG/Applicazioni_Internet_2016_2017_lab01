@@ -42,9 +42,6 @@
         </thead>
         <tbody>
         <tr>
-            <td colspan="4"></td>
-        </tr>
-        <tr>
             <td>urban</td>
             <td>1.50 €</td>
             <td>
@@ -74,15 +71,12 @@
             </td>
             <td>10.00 €</td>
         </tr>
-        <tr>
-            <td colspan="4"></td>
-        </tr>
         <tr >
             <td colspan="2"></td>
             <td align="center">TOTAL</td>
             <td>16.50 €</td>
         </tr>
-        <tr class="danger">
+        <tr>
             <td colspan="2"></td>
             <td>
                 <button>Update cart</button>
