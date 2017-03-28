@@ -2,6 +2,7 @@
 <%@page import="ai_esercitazione_01.controllers.LogoutServlet" %>
 <%@page import="ai_esercitazione_01.model.CartService" %>
 <%@page import="ai_esercitazione_01.model.User" %>
+<%@page import="ai_esercitazione_01.model.Item" %>
 <%
 
     CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
@@ -9,7 +10,10 @@
     if (cartService == null) {
         //error -> should not be here
     } else {
-        itemCount = cartService.getItemCount();
+    	// updated
+    	for (Item item : cartService.getItems()) {
+    		itemCount += item.getQuantity();
+    	}
     }
 
     //check if there is a user logged-in

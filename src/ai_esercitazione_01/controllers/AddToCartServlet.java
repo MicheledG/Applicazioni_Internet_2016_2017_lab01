@@ -18,46 +18,51 @@ import java.io.IOException;
 @WebServlet("/" + AddToCartServlet.URL)
 public class AddToCartServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
-    private static final int DEFAULT_NEW_QUANTITY = 1;
+	private static final long serialVersionUID = 1L;
+	private static final int DEFAULT_NEW_QUANTITY = 1;
 
-    public static final String URL = "addTicket";
-    public static final String POST_PARAMETER_NAME_TICKET_ID = "ticketID";
+	public static final String URL = "addTicket";
+	public static final String POST_PARAMETER_NAME_TICKET_ID = "ticketID";
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        //retrieve information from CONTEXT
-        TicketService ticketService = (TicketService) request.getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
-        //retrieve information from SESSION
-        CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
-        //retrieve information from REQUEST
-        String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
+		// retrieve information from CONTEXT
+		TicketService ticketService = (TicketService) request.getServletContext()
+				.getAttribute(TicketService.ATTRIBUTE_NAME);
+		// retrieve information from SESSION
+		CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+		// retrieve information from REQUEST
+		String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
 
-        //ckeck if ticketID is a valid ID
-        if (ticketID != null) {
-            //check if the ticket is already into the cart
-            if (!cartService.containsItem(ticketID)) {
-                //retrieve info about the ticket
-                Ticket newTicket = ticketService.getTicket(ticketID);
-                if (newTicket != null) {
-                    //insert a new item with this ticket into the cart
-                    Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
-                    cartService.addItem(newItem);
-                }
-            }
-            //else {
-            //    for (Item item : cartService.getItems()) {
-            //        if (item.getID().equals(ticketID)) {
-            //            item.increaseQuantity(1);
-            //        }
-            //    }
-            //}
-        }
+		System.out.println("Trying to add " + ticketID);
 
-        request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-    }
+		// ckeck if ticketID is a valid ID
+		if (ticketID != null) {
+			// check if the ticket is already into the cart
+			
+			if (cartService.containsItem(ticketID)) {
+				for (Item item : cartService.getItems()) {
+					if (item.getID().equals(ticketID)) {
+						item.increaseQuantity(1);
+					}
+				}
+			} else {
+				// retrieve info about the ticket
+				Ticket newTicket = ticketService.getTicket(ticketID);
+				if (newTicket != null) {
+					// insert a new item with this ticket into the cart
+					Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
+					cartService.addItem(newItem);
+				}
+			}
+		}
+
+		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+	}
 
 }
