@@ -59,13 +59,13 @@
             <td>2</td>
             <td>10.00 €</td>
         </tr>
-        <tr >
+        <tr>
             <td colspan="2"></td>
-            <td align="center">TOTAL</td>
+            <td>TOTAL</td>
             <td>16.50 €</td>
         </tr>
         <tr>
-            <td>
+            <td colspan="4" align="center">
                 <form method="get" action="checkout.jsp">
                     <button type="submit">Check Out</button>
                 </form>
