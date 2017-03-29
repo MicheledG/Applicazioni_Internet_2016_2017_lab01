@@ -35,6 +35,7 @@ public class AuthFilter implements Filter {
    	             res.sendRedirect("../login.jsp");
             } else {
                 chain.doFilter(request, response);
+                return;
             }
         }
 
