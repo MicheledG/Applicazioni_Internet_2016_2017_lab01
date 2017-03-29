@@ -37,12 +37,13 @@
 				int quantity = item.getQuantity();
 				Ticket ticket = item.getTicket();
 				Double price = ticket.getPrice();
-				total += (price * quantity);
+				Double itemPrice = price * quantity;
+				total += itemPrice;
 				int i;
 			%>
 			<tr>
 				<td><%=ticket.getType()%></td>
-				<td><%=price%></td>
+				<td><%=String.format("%1$.2f",price)%></td>
 				<td>
 					<select name="<%=UpdateQuantitiesServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
 						<%
@@ -62,7 +63,7 @@
 						%>
 					</select>
 				</td>
-				<td><%=price * quantity%> EUR</td>
+				<td><%=String.format("%1$.2f",itemPrice)%> EUR</td>
 			</tr>
 			<%
 			}
@@ -72,12 +73,12 @@
 	
 	<div class="row">
 		<div class="col-md-4">
-			<p>Total: <%=total%> EUR</p>
+			<p class="lead">Total: <%=String.format("%1$.2f",total)%> EUR</p>
 		</div>
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-			<input type="submit" value="Update Cart">
+			<a href="private/checkout.jsp"><button>Checkout</button></a>
 		</div>
 	</div>
 	

@@ -1,78 +1,64 @@
-<%@page import="ai_esercitazione_01.controllers.LoginServlet" %>
-<%@page import="ai_esercitazione_01.model.Ticket" %>
-<%@page import="ai_esercitazione_01.model.TicketService" %>
-<%@page import="ai_esercitazione_01.model.User" %>
-<%@page import="java.util.List" %>
+<%@page import="java.util.Collection"%>
+<%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
+<%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
+<%@page import="ai_esercitazione_01.model.*"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 
 <%
-    TicketService ticketService = (TicketService) getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
-    if (ticketService == null) {
-        //internal server error -> ticketService should be always present
-    }
-    List<Ticket> tickets = ticketService.getTickets();
-
-    //check if there is a user logged-in
-    String username = "traveler";
-    User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
-    if (user != null) {
-        username = user.getUsername();
-    }
-
+	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+	if (cartService == null) {
+		//internal server error -> cartService should be always present
+	}
+	Collection<Item> items = cartService.getItems();
 %>
 
-<jsp:include page="../header.jsp" flush="true"/>
+<jsp:include page="../header.jsp" flush="true" />
 
-<div class="jumbotron">
-    <h1>Hello, <%=username %>!</h1>
+<h2 class="text-left">Order</h2>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Type</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Subtotal</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+		double total = 0;
+		for (Item item : items) {
+			int quantity = item.getQuantity();
+			Ticket ticket = item.getTicket();
+			Double price = ticket.getPrice();
+			Double itemPrice = price * quantity;
+			total += itemPrice;
+			int i;
+		%>
+		<tr>
+			<td><%=ticket.getType()%></td>
+			<td><%=price%></td>
+			<td><%=quantity%></td>
+			<td><%=String.format("%1$.2f",itemPrice)%> EUR</td>
+		</tr>
+		<%
+		}
+		%>
+	</tbody>
+</table>
+
+<div class="row">
+	<div class="col-md-4">
+		<p class="lead">Total: <%=String.format("%1$.2f",total)%> EUR</p>
+	</div>
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-4">
+		<a href="#"><button>Confirm Payment TODO</button></a>
+	</div>
 </div>
-
-<h2 class="text-left">My Cart</h2>
-
-<div class="jumbotron">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>urban</td>
-            <td>1.50 €</td>
-            <td>3</td>
-            <td>4.50 €</td>
-        </tr>
-        <tr>
-            <td>suburban</td>
-            <td>2.00 €</td>
-            <td>1</td>
-            <td>2.00 €</td>
-        </tr>
-        <tr>
-            <td>daily</td>
-            <td>5.00 €</td>
-            <td>2</td>
-            <td>10.00 €</td>
-        </tr>
-        <tr>
-            <td colspan="2"></td>
-            <td>TOTAL</td>
-            <td>16.50 €</td>
-        </tr>
-        <tr>
-            <td colspan="4" align="center">
-                <form method="get" action="checkout.jsp">
-                    <button type="submit">Check Out</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<jsp:include page="../footer.jsp" flush="true"/>
+	
+<jsp:include page="../footer.jsp" flush="true" />

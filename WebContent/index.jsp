@@ -57,7 +57,7 @@
 			<td><%=ticket.getDescription()%></td>
 			<td><%=ticket.getValidity()%> <%=ticket.getValidityTimeUnit()%>
 			</td>
-			<td><%=Double.toString(ticket.getPrice()) + "0"%> EUR</td>
+			<td><%=String.format("%1$.2f", ticket.getPrice())%> EUR</td>
 			<td>
 				<form action="<%=AddToCartServlet.URL%>" method="post">
 					<input type="hidden"
