@@ -52,9 +52,9 @@
 				<td>
 					<form action="<%=UpdateQuantitiesServlet.URL%>" method="post">
 						<input type="hidden" value="<%=item.getID()%>"/>
-						<button type="submit">-</button>
+						<button type="submit" class="btn btn-default">-</button>
 						<input name="<%=item.getID()%>" type="text" value="<%=quantity%>">
-						<button type="submit">+</button>
+						<button type="submit" class="btn btn-default">+</button>
 					</form>
 				</td>
 				<td><%=price * quantity%> EUR</td>
