@@ -62,17 +62,17 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.jsp">TGT Transports</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}index.jsp">TGT Transports</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-                <li><a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+                <li><a href="${pageContext.request.contextPath}/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+                <li><a href="${pageContext.request.contextPath}cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
                     (<%=itemCount %>)</a></li>
                 <li>
-                    <form action="<%=urlLoginLogout %>" method="<%=method%>" style="padding-top: 8px;">
+                    <form action="${pageContext.request.contextPath}/<%=urlLoginLogout %>" method="<%=method%>" style="padding-top: 8px;">
                         <button type="submit" class="btn btn-link">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             <%=messageLoginLogout%>
