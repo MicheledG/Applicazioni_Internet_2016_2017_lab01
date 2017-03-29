@@ -13,6 +13,8 @@ import ai_esercitazione_01.controllers.LoginServlet;
  */
 @WebFilter("/AuthFilter")
 public class AuthFilter implements Filter {
+	
+	public static final String SESSION_ATTRIBUTE_LANDING_URL = "landingUrl";
 
     /**
      * @see Filter#destroy()
@@ -29,7 +31,8 @@ public class AuthFilter implements Filter {
             HttpSession session = ((HttpServletRequest) request).getSession();
             if (session.getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)==null) {
    	             HttpServletResponse res = (HttpServletResponse) response;
-                res.sendRedirect("../login.jsp");
+   	             session.setAttribute(SESSION_ATTRIBUTE_LANDING_URL, ((HttpServletRequest) request).getRequestURI());
+   	             res.sendRedirect("../login.jsp");
             } else {
                 chain.doFilter(request, response);
             }

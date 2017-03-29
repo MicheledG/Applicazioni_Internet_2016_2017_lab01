@@ -1,5 +1,6 @@
 package ai_esercitazione_01.controllers;
 
+import ai_esercitazione_01.filters.AuthFilter;
 import ai_esercitazione_01.model.LoginService;
 import ai_esercitazione_01.model.User;
 
@@ -55,7 +56,12 @@ public class LoginServlet extends HttpServlet {
 				else {
 					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
 					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
-					response.sendRedirect("index.jsp");
+					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
+					if (landingUrl != null) {
+						response.sendRedirect(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
+					} else {
+						response.sendRedirect("index.jsp");
+					}
 				}
 			}
 			else {
