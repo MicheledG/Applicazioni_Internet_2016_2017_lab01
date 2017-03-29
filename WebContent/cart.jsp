@@ -1,5 +1,5 @@
-<%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
+<%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -63,15 +63,8 @@
 				}
 			%>
 			<tr align="center">
-				<td colspan="2">
-					<form method="post">
-						<button>update cart</button>
-					</form>
-				</td>
-				<td colspan="2">
-					<form action="checkout.jsp">
-						<button>checkout</button>
-					</form>
+				<td colspan="4">
+					<a href="private/checkout.jsp">checkout</a>
 				</td>
 			</tr>
 			<tr align="center">

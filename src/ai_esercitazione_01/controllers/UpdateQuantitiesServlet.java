@@ -7,13 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class UpdateQuantities
- */
 @WebServlet("/" + UpdateQuantitiesServlet.URL)
 public class UpdateQuantitiesServlet extends HttpServlet {
 	
-	public static final String URL = "UpdateQueantities";
+	public static final String URL = "UpdateQuantitiesServlet";
 	
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +19,7 @@ public class UpdateQuantitiesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//int username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
+		request.getServletContext().getRequestDispatcher("cart.jsp").forward(request, response);
 	}
 
 }
