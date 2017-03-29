@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
 					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
 					if (landingUrl != null) {
-						response.sendRedirect(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
+						response.sendRedirect(landingUrl);
 					} else {
 						response.sendRedirect("index.jsp");
 					}
