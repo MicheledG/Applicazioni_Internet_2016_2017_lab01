@@ -72,7 +72,7 @@
                 <li><a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
                     (<%=itemCount %>)</a></li>
                 <li>
-                    <form action="<%=urlLoginLogout %>" method="<%=method%>">
+                    <form action="<%=urlLoginLogout %>" method="<%=method%>" style="padding-top: 8px;">
                         <button type="submit" class="btn btn-link">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                             <%=messageLoginLogout%>
