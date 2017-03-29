@@ -43,7 +43,7 @@
 			%>
 			<tr>
 				<td><%=ticket.getType()%></td>
-				<td><%=String.format("%1$.2f",price)%></td>
+				<td><%=String.format("%1$.2f",price) %></td>
 				<td>
 					<select name="<%=UpdateQuantitiesServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
 						<%
@@ -78,8 +78,8 @@
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-			<input type="submit" value="Update Cart">
-			<button><a href="private/checkout.jsp">Checkout</a></button>
+			<input class="btn btn-default" type="submit" value="Update Cart">
+			<a class="btn btn-default" href="private/checkout.jsp">Checkout</a>
 		</div>
 	</div>
 	

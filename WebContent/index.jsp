@@ -60,10 +60,8 @@
 			<td><%=String.format("%1$.2f", ticket.getPrice())%> EUR</td>
 			<td>
 				<form action="<%=AddToCartServlet.URL%>" method="post">
-					<input type="hidden"
-						name="<%=AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID%>"
-						value="<%=ticket.getID()%>">
-					<button type="submit" class="btn btn-default">Add</button>
+					<input type="hidden" name="<%=AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID%>" value="<%=ticket.getID()%>">
+					<input class="btn btn-default" type="submit" value="Add">
 				</form>
 			</td>
 		</tr>

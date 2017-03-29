@@ -57,7 +57,7 @@
 	<div class="col-md-4">
 	</div>
 	<div class="col-md-4">
-		<button><a href="#">Confirm Payment TODO</a></button>
+		<a class="btn btn-default" href="#">Confirm Payment TODO</a>
 	</div>
 </div>
 	
