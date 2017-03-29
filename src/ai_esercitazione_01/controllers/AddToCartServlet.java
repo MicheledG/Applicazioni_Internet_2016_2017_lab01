@@ -42,16 +42,9 @@ public class AddToCartServlet extends HttpServlet {
 		System.out.println("Trying to add " + ticketID);
 
 		// ckeck if ticketID is a valid ID
-		if (ticketID != null) {
-			// check if the ticket is already into the cart
-			
-			if (cartService.containsItem(ticketID)) {
-				for (Item item : cartService.getItems()) {
-					if (item.getID().equals(ticketID)) {
-						item.increaseQuantity(1);
-					}
-				}
-			} else {
+		if (ticketID != null) {			
+			// check if the ticket is already into the cart	
+			if (!cartService.containsItem(ticketID)) {
 				// retrieve info about the ticket
 				Ticket newTicket = ticketService.getTicket(ticketID);
 				if (newTicket != null) {

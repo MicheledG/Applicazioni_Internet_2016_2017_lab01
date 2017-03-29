@@ -35,7 +35,12 @@ public class UpdateQuantitiesServlet extends HttpServlet {
 			if(quantity!=null){
 				try{
 					int intQuantity = Integer.parseInt(quantity); 
-					item.setQuantity(intQuantity);
+					if(intQuantity == 0){
+						cartService.removeItem(item.getID());
+					}
+					else{
+						item.setQuantity(intQuantity);
+					}
 				}catch (NumberFormatException e) {
 					// TODO: handle exception
 				}
