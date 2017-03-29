@@ -22,7 +22,7 @@
 
 %>
 
-<jsp:include page="header.jsp" flush="true"/>
+<jsp:include page="../header.jsp" flush="true"/>
 
 <div class="jumbotron">
     <h1>Hello, <%=username %>!</h1>
@@ -75,4 +75,4 @@
     </table>
 </div>
 
-<jsp:include page="footer.jsp" flush="true"/>
+<jsp:include page="../footer.jsp" flush="true"/>
