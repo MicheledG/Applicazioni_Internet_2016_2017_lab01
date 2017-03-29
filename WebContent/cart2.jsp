@@ -78,7 +78,8 @@
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4">
-			<a href="private/checkout.jsp"><button>Checkout</button></a>
+			<input type="submit" value="Update Cart">
+			<button><a href="private/checkout.jsp">Checkout</a></button>
 		</div>
 	</div>
 	
