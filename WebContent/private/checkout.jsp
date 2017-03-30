@@ -1,5 +1,4 @@
 <%@page import="java.util.Collection"%>
-<%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
 <%@page import="java.util.List"%>
