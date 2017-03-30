@@ -8,8 +8,11 @@
 
 <h2 class="text-center">Login</h2>
 
-<% 
-User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+<% User user = null;
+ 
+	synchronized(session) {
+	user = (User) session.getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+}
 if(user == null) {	
 %>
 	<div class="row">

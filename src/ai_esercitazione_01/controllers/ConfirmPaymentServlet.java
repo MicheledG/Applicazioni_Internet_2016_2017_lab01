@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class ConfirmPayementServlet
@@ -22,7 +23,33 @@ public class ConfirmPaymentServlet extends HttpServlet {
 
        
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		HttpSession s = request.getSession();
     		PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
+    		if (ps.doPayment()) {
+    			synchronized(s) {
+    				CartService cs = (CartService) s.getAttribute(CartService.ATTRIBUTE_NAME);
+    				if (cs == null) {
+    					//error -> should not be here
+    					request.getSession().invalidate();
+    					request.getSession(true);
+    					request.getRequestDispatcher("index.jsp").forward(request, response);
+    					return;
+    				}
+    			
+    				Collection<Item> items = cs.getItems();
+    				//make the cart empty
+    				for (Item item : items) {
+    					cs.removeItem(item.getID());
+    				}
+    			}
+    			response.sendRedirect("private/confirm.jsp");    			
+    		}
+    		
+    		else {
+    			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
+    			response.sendRedirect("private/checkout.jsp");
+    		}
+    		/*PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
     		if (ps.doPayment()) {
     			//if payment was good
     			CartService cs = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
@@ -44,7 +71,7 @@ public class ConfirmPaymentServlet extends HttpServlet {
     		else {
     			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
     			response.sendRedirect("private/checkout.jsp");
-    		}
+    		}*/
 	}
 
 }

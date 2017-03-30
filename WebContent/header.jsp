@@ -32,11 +32,11 @@
         //TODO
         method = "get";
         urlLoginLogout = "login.jsp";
-        messageLoginLogout = "login";
+        messageLoginLogout = "Login";
     } else {
         method = "post";
         urlLoginLogout = LogoutServlet.URL;
-        messageLoginLogout = "logout";
+        messageLoginLogout = "Logout";
     }
 
 %>
