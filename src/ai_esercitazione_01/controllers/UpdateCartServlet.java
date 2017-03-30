@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -27,41 +29,48 @@ public class UpdateCartServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // retrieve information from SESSION
-        CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+        
+    	HttpSession session = request.getSession();
+    	// retrieve information from SESSION
+        synchronized (session) {
+        	
+        	CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
 
-        if (cartService == null) {
-            //error -> should not be here
-            request.getSession().invalidate();
-            request.getSession(true);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return;
-        }
-
-        Collection<Item> items = cartService.getItems();
-
-        // retrieve quantity of each ticket contained into the post parameters
-        for (Item item : items) {
-            String quantity = request.getParameter(UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY + item.getID());
-            if (quantity != null) {
-                try {
-                    int intQuantity = Integer.parseInt(quantity);
-                    if (intQuantity < UpdateCartServlet.MIN_QUANTITY || intQuantity > UpdateCartServlet.MAX_QUANTITY) {
-                        //wrong quantity value
-                    } else if (intQuantity == 0) {
-                        cartService.removeItem(item.getID());
-                    } else {
-                        item.setQuantity(intQuantity);
-                    }
-                } catch (NumberFormatException e) {
-                    //ignore the quantity for this item
-                    continue;
-                }
-            } else {
-                //missing item quantity within the request, remove the item
-                cartService.removeItem(item.getID());
+            if (cartService == null) {
+                //error -> should not be here
+                session.invalidate();
+                request.getSession(true);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                return;
             }
-        }
+
+            Collection<Item> items = cartService.getItems();
+
+            // retrieve quantity of each ticket contained into the post parameters
+            for (Item item : items) {
+                String quantity = request.getParameter(UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY + item.getID());
+                if (quantity != null) {
+                    try {
+                        int intQuantity = Integer.parseInt(quantity);
+                        if (intQuantity < UpdateCartServlet.MIN_QUANTITY || intQuantity > UpdateCartServlet.MAX_QUANTITY) {
+                            //wrong quantity value
+                        } else if (intQuantity == 0) {
+                            cartService.removeItem(item.getID());
+                        } else {
+                            item.setQuantity(intQuantity);
+                        }
+                    } catch (NumberFormatException e) {
+                        //ignore the quantity for this item
+                        continue;
+                    }
+                } else {
+                    //missing item quantity within the request, remove the item
+                    cartService.removeItem(item.getID());
+                }
+            }
+        	
+		}
+    	
 
         request.getServletContext().getRequestDispatcher("/cart.jsp").forward(request, response);
     }
