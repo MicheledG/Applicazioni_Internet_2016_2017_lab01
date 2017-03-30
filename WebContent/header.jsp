@@ -68,7 +68,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="${pageContext.request.contextPath}/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/cart2.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+            <li><a href="${pageContext.request.contextPath}/cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
                 (<%=itemCount %>)</a></li>
             <li>
                 <form action="${pageContext.request.contextPath}/<%=urlLoginLogout %>" method="<%=method%>" style="padding-top: 8px;">

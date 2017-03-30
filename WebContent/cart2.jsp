@@ -1,5 +1,4 @@
-<%@page import="ai_esercitazione_01.controllers.UpdateCartServlet"%>
-<%@page import="java.util.Collection"%>
+<%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
 <%@page import="java.util.List"%>
@@ -7,19 +6,28 @@
 	pageEncoding="UTF-8"%>
 
 <%
-	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
-	if (cartService == null) {
-		//internal server error -> cartService should be always present
+	TicketService ticketService = (TicketService) getServletContext()
+			.getAttribute(TicketService.ATTRIBUTE_NAME);
+	if (ticketService == null) {
+		//internal server error -> ticketService should be always present
 	}
-	Collection<Item> items = cartService.getItems();
+	List<Ticket> tickets = ticketService.getTickets();
+
+	//check if there is a user logged-in
+	String username = "traveler";
+	User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+	if (user != null) {
+		username = user.getUsername();
+	}
+
+	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
 %>
 
 <jsp:include page="header.jsp" flush="true" />
 
 <h2 class="text-left">My Cart</h2>
 
-
-<form action="<%=UpdateCartServlet.URL%>" method="post">
+<div class="jumbotron">
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -31,60 +39,40 @@
 		</thead>
 		<tbody>
 			<%
-			double total = 0;
-	
-			for (Item item : items) {
-				int quantity = item.getQuantity();
-				Ticket ticket = item.getTicket();
-				Double price = ticket.getPrice();
-				Double itemPrice = price * quantity;
-				total += itemPrice;
-				int i;
+				double total = 0;
+
+				for (Item item : cartService.getItems()) {
+					Double price = item.getTicket().getPrice();
+					int quantity = item.getQuantity();
+					total += (price * quantity);
 			%>
 			<tr>
-				<td><%=ticket.getType()%></td>
-				<td><%=String.format("%1$.2f",price) %></td>
+				<td><%=item.getTicket().getType()%></td>
+				<td><%=price%></td>
 				<td>
-					<select name="<%=UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
-						<%
-						for(i = UpdateCartServlet.MIN_QUANTITY; i <= UpdateCartServlet.MAX_QUANTITY; i++) {
-							if(i == quantity){
-							%>								
-								<option value="<%=i %>" selected><%=i %></option>
-							<%
-							} else {
-							%>
-								<option value="<%=i %>"><%=i %></option>
-							<%
-							} 
-							%>
-						<%
-						} 
-						%>
-					</select>
+					<form action="<%=UpdateQuantitiesServlet.URL%>" method="post">
+						<input type="hidden" value="<%=item.getID()%>"/>
+						<button type="submit" class="btn btn-default">-</button>
+						<input name="<%=item.getID()%>" type="text" value="<%=quantity%>">
+						<button type="submit" class="btn btn-default">+</button>
+					</form>
 				</td>
-				<td><%=String.format("%1$.2f",itemPrice)%> EUR</td>
+				<td><%=price * quantity%> EUR</td>
 			</tr>
 			<%
-			}
+				}
 			%>
+			<tr align="center">
+				<td colspan="4">
+					<a href="private/checkout.jsp">checkout</a>
+				</td>
+			</tr>
+			<tr align="center">
+				<td colspan="2">TOTAL</td>
+				<td colspan="2"><%=total%> EUR</td>
+			</tr>
 		</tbody>
 	</table>
-	
-	<div class="row">
-		<div class="col-md-4">
-			<p class="lead">Total: <%=String.format("%1$.2f",total)%> EUR</p>
-		</div>
-		<div class="col-md-4">
-		</div>
-		<div class="col-md-4">
-			<input class="btn btn-default" type="submit" value="Update Cart">
-			<a class="btn btn-default" href="private/checkout.jsp">Checkout</a>
-		</div>
-	</div>
-	
-	
-	
-</form>
+</div>
 
 <jsp:include page="footer.jsp" flush="true" />
