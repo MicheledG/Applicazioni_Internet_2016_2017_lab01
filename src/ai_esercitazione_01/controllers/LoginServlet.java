@@ -31,16 +31,17 @@ public class LoginServlet extends HttpServlet {
 
     public static final String SESSION_ATTRIBUTE_USER = "user";
 
+    public static final String SESSION_ATTRIBUTE_LOGIN_ERROR = "loginError";
+    
     public static final String POST_PARAMETER_USERNAME = "username";
     public static final String POST_PARAMETER_PASSWORD = "password";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
-			request.setAttribute("yetLogged", "You are logged-in yet!");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("login.jsp").forward(request, response);	
 		}
+    	
 		else {
 			
 			String username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
@@ -74,8 +75,8 @@ public class LoginServlet extends HttpServlet {
 				User loggedUser = loginService.login(username, password);
 				
 				if (loggedUser == null) {
-					//username or password not stored in DB
-					request.setAttribute("loginError", "Login Failed: check user or password.");
+					//username or password not stored in DB					
+					request.setAttribute(LoginServlet.SESSION_ATTRIBUTE_LOGIN_ERROR, "true");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}
 				else {
@@ -84,15 +85,16 @@ public class LoginServlet extends HttpServlet {
 					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
 					if (landingUrl != null) {
 						response.sendRedirect(landingUrl);
+						return;
 					} else {
 						response.sendRedirect("index.jsp");
+						return;
 					}
 				}
 			}
 			else {
-				//if username or password is null
-				//i could also set an attribute "inputMissing" with a String "Insert username/password too"
 				response.sendRedirect("login.jsp");
+				return;
 			}
 		}
     }
