@@ -3,7 +3,7 @@
 <%@page import="ai_esercitazione_01.model.Item" %>
 <%@page import="ai_esercitazione_01.model.Ticket" %>
 <%@page import="java.util.Collection" %>
-<%@ page import="ai_esercitazione_01.controllers.EmptyCart" %>
+<%@ page import="ai_esercitazione_01.controllers.EmptyCartServlet" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -100,7 +100,7 @@
     </div>
 </form>
 
-<form action="<%=EmptyCart.URL%>" method="post">
+<form action="<%=EmptyCartServlet.URL%>" method="post">
     <input class="btn btn-default" type="submit" value="Empty Cart">
 </form>
 
