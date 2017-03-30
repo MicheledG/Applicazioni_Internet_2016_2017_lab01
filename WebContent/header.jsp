@@ -9,6 +9,7 @@
     int itemCount = 0;
     if (cartService == null) {
         //error -> should not be here
+    	response.sendRedirect(LogoutServlet.URL);
     } else {
     	// updated
     	for (Item item : cartService.getItems()) {

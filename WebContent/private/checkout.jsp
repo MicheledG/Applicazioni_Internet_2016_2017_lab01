@@ -1,3 +1,4 @@
+<%@page import="ai_esercitazione_01.controllers.LogoutServlet"%>
 <%@page import="java.util.Collection"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
@@ -9,6 +10,7 @@
 	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
 	if (cartService == null) {
 		//internal server error -> cartService should be always present
+		response.sendRedirect(LogoutServlet.URL);
 	}
 	Collection<Item> items = cartService.getItems();
 %>
