@@ -9,11 +9,11 @@ public class TicketDAOStaticImpl implements TicketDAO {
     private static ConcurrentHashMap<String, Ticket> tickets = new ConcurrentHashMap<>();
 
     public TicketDAOStaticImpl() {
-        Ticket ticket1 = new Ticket("Urban", 1.5);
-        Ticket ticket2 = new Ticket("Suburban", 1.5);
-        Ticket ticket3 = new Ticket("Daily", 5.0);
-        Ticket ticket4 = new Ticket("Weekly", 15.00);
-        Ticket ticket5 = new Ticket("Monthly", 32.00);
+        Ticket ticket1 = new Ticket("Urban Ticket", 1.5);
+        Ticket ticket2 = new Ticket("Suburban Ticket", 1.5);
+        Ticket ticket3 = new Ticket("Daily Ticket", 5.0);
+        Ticket ticket4 = new Ticket("Weekly Ticket", 15.00);
+        Ticket ticket5 = new Ticket("Monthly Ticket", 32.00);
 
         ticket1.setDescription("It allows a single ride on a bus within the city area");
         ticket1.setValidity(90);
