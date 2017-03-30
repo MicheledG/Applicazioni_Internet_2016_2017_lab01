@@ -1,4 +1,4 @@
-<%@page import="ai_esercitazione_01.controllers.EmptyCart" %>
+<%@page import="ai_esercitazione_01.controllers.EmptyCartServlet" %>
 <%@page import="ai_esercitazione_01.controllers.LogoutServlet" %>
 <%@page import="ai_esercitazione_01.model.CartService" %>
 <%@page import="ai_esercitazione_01.model.Item" %>
@@ -67,7 +67,7 @@
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-        <form action="../<%=EmptyCart.URL%>" method="post">
+        <form action="../<%=EmptyCartServlet.URL%>" method="post">
             <input class="btn btn-default" type="submit" value="Confirm Payment">
         </form>
     </div>
