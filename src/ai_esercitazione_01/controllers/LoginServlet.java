@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 /**
@@ -33,51 +34,53 @@ public class LoginServlet extends HttpServlet {
     public static final String POST_PARAMETER_PASSWORD = "password";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
-			request.getRequestDispatcher("login.jsp").forward(request, response);	
-		}
-    	
-		else {
-			
-			String username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
-			String password = request.getParameter(LoginServlet.POST_PARAMETER_PASSWORD); 
-			
-			if (username!=null && password!=null) {
-			
-				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
-				if(loginService == null){
-					//error -> should not be here
-					request.getSession().invalidate();
-			        request.getSession(true);
-			        request.getRequestDispatcher("index.jsp").forward(request, response);
-			        return;
-				}
-				
-				User loggedUser = loginService.login(username, password);
-				
-				if (loggedUser == null) {
-					//username or password not stored in DB					
-					request.setAttribute(LoginServlet.SESSION_ATTRIBUTE_LOGIN_ERROR, "true");
-					request.getRequestDispatcher("login.jsp").forward(request, response);
-				}
-				else {
-					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
-					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
-					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
-					if (landingUrl != null) {
-						response.sendRedirect(landingUrl);
-						return;
-					} else {
-						response.sendRedirect("index.jsp");
-						return;
-					}
-				}
-			}
-			else {
-				response.sendRedirect("login.jsp");
-				return;
-			}
-		}
+    	HttpSession s = request.getSession();
+    	synchronized(s) {
+    		if(s.getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
+    			request.getRequestDispatcher("login.jsp").forward(request, response);
+    		}
+    		else {
+    			
+    			String username = request.getParameter(LoginServlet.POST_PARAMETER_USERNAME);
+    			String password = request.getParameter(LoginServlet.POST_PARAMETER_PASSWORD); 
+    			
+    			if (username!=null && password!=null) {
+    			
+    				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
+    				if(loginService == null){
+    					//error -> should not be here
+    					request.getSession().invalidate();
+    			        request.getSession(true);
+    			        request.getRequestDispatcher("index.jsp").forward(request, response);
+    			        return;
+    				}
+    				
+    				User loggedUser = loginService.login(username, password);
+    				
+    				if (loggedUser == null) {
+    					//username or password not stored in DB					
+    					request.setAttribute(LoginServlet.SESSION_ATTRIBUTE_LOGIN_ERROR, "true");
+    					request.getRequestDispatcher("login.jsp").forward(request, response);
+    				}
+    				else {
+    					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
+    					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
+    					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
+    					if (landingUrl != null) {
+    						response.sendRedirect(landingUrl);
+    						return;
+    					} else {
+    						response.sendRedirect("index.jsp");
+    						return;
+    					}
+    				}
+    			}
+    			else {
+    				response.sendRedirect("login.jsp");
+    				return;
+    			}
+    		}
+
+    	}
     }
 }

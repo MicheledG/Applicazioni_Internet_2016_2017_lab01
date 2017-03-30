@@ -49,29 +49,6 @@ public class ConfirmPaymentServlet extends HttpServlet {
     			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
     			response.sendRedirect("private/checkout.jsp");
     		}
-    		/*PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
-    		if (ps.doPayment()) {
-    			//if payment was good
-    			CartService cs = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
-    			if (cs == null) {
-    	            //error -> should not be here
-    	            request.getSession().invalidate();
-    	            request.getSession(true);
-    	            request.getRequestDispatcher("index.jsp").forward(request, response);
-    	            return;
-    	        }
-
-    	        Collection<Item> items = cs.getItems();
-    	        //make the cart empty
-    	        for (Item item : items) {
-    	                cs.removeItem(item.getID());
-    	        }
-    	        response.sendRedirect("private/confirm.jsp");    			
-    		}
-    		else {
-    			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
-    			response.sendRedirect("private/checkout.jsp");
-    		}*/
-	}
+    	}
 
 }
