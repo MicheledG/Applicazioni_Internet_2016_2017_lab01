@@ -16,18 +16,18 @@
 			.getAttribute(TicketService.ATTRIBUTE_NAME);
 	if (ticketService == null) {
 		//error -> should not be here
-		request.getSession().invalidate();
-        request.getSession(true);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
         return;
 	}
 	List<Ticket> tickets = ticketService.getTickets();
 
 	//check if there is a user logged-in
 	String username = "traveler";
-	User user = (User) request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
-	if (user != null) {
-		username = user.getUsername();
+
+	synchronized(session){
+		User user = (User) session.getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER);
+		if (user != null) {
+			username = user.getUsername();
+		}
 	}
 %>
 
