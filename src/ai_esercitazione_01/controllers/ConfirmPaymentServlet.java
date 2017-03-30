@@ -48,7 +48,7 @@ public class ConfirmPaymentServlet extends HttpServlet {
 //	    		}
     		}
     		
-    		response.sendRedirect("private/confirm.jsp");		
+    		response.sendRedirect("confirm.jsp");		
     		
     	}
 

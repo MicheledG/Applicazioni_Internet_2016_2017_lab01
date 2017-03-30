@@ -8,7 +8,11 @@
          pageEncoding="UTF-8" %>
 
 <%
-    CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+    
+CartService cartService;
+synchronized(session){
+
+	cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
     if (cartService == null) {
         //internal server error -> cartService should be always present
         request.getSession().invalidate();
@@ -17,7 +21,9 @@
         return;
 
     }
+    
     Collection<Item> items = cartService.getItems();
+
 %>
 
 <jsp:include page="header.jsp" flush="true"/>
@@ -99,6 +105,11 @@
         </div>
     </div>
 </form>
+
+<%
+} //closing synchronized
+%>
+
 
 <form action="<%=EmptyCartServlet.URL%>" method="post">
     <input class="btn btn-default" type="submit" value="Empty Cart">

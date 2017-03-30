@@ -12,7 +12,11 @@
          pageEncoding="UTF-8" %>
 
 <%
-    CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+    
+
+synchronized(session){
+		
+	CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
     if (cartService == null) {
         //error -> should not be here
         request.getSession().invalidate();
@@ -20,7 +24,9 @@
         request.getRequestDispatcher("index.jsp").forward(request, response);
         return;
     }
+    
     Collection<Item> items = cartService.getItems();
+	double total = 0;
 %>
 
 <jsp:include page="../header.jsp" flush="true"/>
@@ -38,7 +44,6 @@
     </thead>
     <tbody>
     <%
-        double total = 0;
         for (Item item : items) {
             int quantity = item.getQuantity();
             Ticket ticket = item.getTicket();
@@ -73,5 +78,9 @@
         </form>
     </div>
 </div>
+
+<%
+}
+%>
 
 <jsp:include page="../footer.jsp" flush="true"/>
