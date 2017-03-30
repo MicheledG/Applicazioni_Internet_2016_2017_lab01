@@ -30,6 +30,11 @@ public class UpdateCartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// retrieve information from SESSION
 		CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+		if(cartService == null){
+			response.sendRedirect(LogoutServlet.URL);
+		}
+		
+		
 		Collection<Item> items = cartService.getItems();
 		
 		// retrieve quantity of each ticket contained into the post parameters

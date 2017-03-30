@@ -32,10 +32,15 @@ public class AddToCartServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// retrieve information from CONTEXT
-		TicketService ticketService = (TicketService) request.getServletContext()
-				.getAttribute(TicketService.ATTRIBUTE_NAME);
+		TicketService ticketService = (TicketService) request.getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
 		// retrieve information from SESSION
 		CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
+		
+		if(ticketService == null || cartService == null){
+			response.sendRedirect(LogoutServlet.URL);
+		}
+		
+		
 		// retrieve information from REQUEST
 		String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
 

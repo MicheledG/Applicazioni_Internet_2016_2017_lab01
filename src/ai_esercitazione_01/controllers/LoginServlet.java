@@ -32,8 +32,8 @@ public class LoginServlet extends HttpServlet {
     public static final String POST_PARAMETER_PASSWORD = "password";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
+    	
+    	if (request.getSession().getAttribute(LoginServlet.SESSION_ATTRIBUTE_USER)!=null) {
 			request.setAttribute("yetLogged", "You are logged-in yet!");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			
@@ -46,6 +46,10 @@ public class LoginServlet extends HttpServlet {
 			if (username!=null && password!=null) {
 			
 				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
+				if(loginService == null){
+					response.sendRedirect(LogoutServlet.URL);
+				}
+				
 				User loggedUser = loginService.login(username, password);
 				
 				if (loggedUser == null) {
