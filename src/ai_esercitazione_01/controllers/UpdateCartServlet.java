@@ -1,8 +1,6 @@
 package ai_esercitazione_01.controllers;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
