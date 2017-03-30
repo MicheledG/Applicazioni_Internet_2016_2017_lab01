@@ -20,10 +20,11 @@ public class LogoutServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-    	HttpSession session = request.getSession();
-    	
-    	synchronized (session) {
-    		session.invalidate();
+    	//TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
+		HttpSession session = request.getSession();
+		//OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
+    	synchronized (session) { //should be an atomic operation
+       		session.invalidate();
     		request.getSession(true);
             request.getRequestDispatcher("index.jsp").forward(request, response);
     	}

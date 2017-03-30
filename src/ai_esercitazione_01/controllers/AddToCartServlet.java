@@ -37,8 +37,9 @@ public class AddToCartServlet extends HttpServlet {
 		// retrieve information from CONTEXT
 		TicketService ticketService = (TicketService) request.getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
 		
+		//TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
 		HttpSession session = request.getSession();
-		
+		//OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
 		synchronized(session){
 			
 			// retrieve information from SESSION
