@@ -33,23 +33,31 @@ if(user == null) {
 	<%
 	if (request.getAttribute(LoginServlet.SESSION_ATTRIBUTE_LOGIN_ERROR) != null) {
 	%>
-		<div class="panel panel-danger">
-			<div class="panel-heading">Login Error:</div>
-			<div class="panel-body">Wrong username or password.</div>
-		</div>	
-		
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="alert alert-danger text-center">
+  					<strong>Error:</strong> wrong username or password.
+				</div>
+			</div>
+			<div class="col-md-4"></div>	
+		</div>
+				
 	<%
 	}
-	%>
-
-<% 
 }
 else {	
 %>
-	<div class="panel panel-success">
-	     <div class="panel-heading">User <%=user.getUsername() %> already logged!</div>
-	     <div class="panel-body">Please continue the navigation in our website</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="alert alert-info text-center">
+  				<strong>Info:</strong> user <%=user.getUsername() %> already logged.
+			</div>
+		</div>
+		<div class="col-md-4"></div>	
 	</div>
+	
 <%
 }
 %>
