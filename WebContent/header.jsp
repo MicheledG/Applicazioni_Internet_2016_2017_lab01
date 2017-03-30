@@ -12,24 +12,10 @@
     int itemCount = 0;
     if (cartService == null) {
         //error -> should not be here
-    	String url = request.getScheme() + "://" +
-		request.getServerName() + ":" +
-		request.getServerPort() +
-		request.getContextPath() + "/" +
-		LogoutServlet.URL;
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-		//add reuqest header
-		con.setRequestMethod("POST");
-		
-		// Send post request
-		con.setDoOutput(true);
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.flush();
-		wr.close();
-		
-		return;
+    	request.getSession().invalidate();
+        request.getSession(true);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        return;
     } else {
     	// updated
     	for (Item item : cartService.getItems()) {

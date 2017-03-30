@@ -30,7 +30,6 @@ public class LoginServlet extends HttpServlet {
     public static final String URL = "login";
 
     public static final String SESSION_ATTRIBUTE_USER = "user";
-
     public static final String SESSION_ATTRIBUTE_LOGIN_ERROR = "loginError";
     
     public static final String POST_PARAMETER_USERNAME = "username";
@@ -52,24 +51,10 @@ public class LoginServlet extends HttpServlet {
 				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
 				if(loginService == null){
 					//error -> should not be here
-			    	String url = request.getScheme() + "://" +
-					request.getServerName() + ":" +
-					request.getServerPort() +
-					request.getContextPath() + "/" +
-					LogoutServlet.URL;
-					java.net.URL obj = new java.net.URL(url);
-					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-
-					//add reuqest header
-					con.setRequestMethod("POST");
-					
-					// Send post request
-					con.setDoOutput(true);
-					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-					wr.flush();
-					wr.close();
-					
-					return;
+					request.getSession().invalidate();
+			        request.getSession(true);
+			        request.getRequestDispatcher("index.jsp").forward(request, response);
+			        return;
 				}
 				
 				User loggedUser = loginService.login(username, password);
