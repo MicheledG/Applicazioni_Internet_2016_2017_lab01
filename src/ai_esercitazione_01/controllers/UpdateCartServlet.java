@@ -1,6 +1,8 @@
 package ai_esercitazione_01.controllers;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.Collection;
 
 import javax.servlet.ServletException;
@@ -31,7 +33,25 @@ public class UpdateCartServlet extends HttpServlet {
 		// retrieve information from SESSION
 		CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
 		if(cartService == null){
-			response.sendRedirect(LogoutServlet.URL);
+			//error -> should not be here
+	    	String url = request.getScheme() + "://" +
+			request.getServerName() + ":" +
+			request.getServerPort() +
+			request.getContextPath() + "/" +
+			LogoutServlet.URL;
+			java.net.URL obj = new java.net.URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			//add reuqest header
+			con.setRequestMethod("POST");
+			
+			// Send post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.flush();
+			wr.close();
+			
+			return;
 		}
 		
 		

@@ -1,3 +1,7 @@
+<%@page import="java.io.DataOutputStream"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
+<%@page import="ai_esercitazione_01.controllers.LogoutServlet"%>
 <%@page import="ai_esercitazione_01.controllers.AddToCartServlet"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.Ticket"%>
@@ -11,7 +15,25 @@
 	TicketService ticketService = (TicketService) getServletContext()
 			.getAttribute(TicketService.ATTRIBUTE_NAME);
 	if (ticketService == null) {
-		//internal server error -> ticketService should be always present
+		//error -> should not be here
+    	String url = request.getScheme() + "://" +
+		request.getServerName() + ":" +
+		request.getServerPort() +
+		request.getContextPath() + "/" +
+		LogoutServlet.URL;
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		//add reuqest header
+		con.setRequestMethod("POST");
+		
+		// Send post request
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.flush();
+		wr.close();
+		
+		return;
 	}
 	List<Ticket> tickets = ticketService.getTickets();
 

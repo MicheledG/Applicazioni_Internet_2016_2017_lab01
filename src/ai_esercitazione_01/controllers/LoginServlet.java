@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,7 +50,25 @@ public class LoginServlet extends HttpServlet {
 			
 				LoginService loginService = (LoginService) request.getServletContext().getAttribute(LoginService.ATTRIBUTE_NAME);			
 				if(loginService == null){
-					response.sendRedirect(LogoutServlet.URL);
+					//error -> should not be here
+			    	String url = request.getScheme() + "://" +
+					request.getServerName() + ":" +
+					request.getServerPort() +
+					request.getContextPath() + "/" +
+					LogoutServlet.URL;
+					java.net.URL obj = new java.net.URL(url);
+					HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+					//add reuqest header
+					con.setRequestMethod("POST");
+					
+					// Send post request
+					con.setDoOutput(true);
+					DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+					wr.flush();
+					wr.close();
+					
+					return;
 				}
 				
 				User loggedUser = loginService.login(username, password);

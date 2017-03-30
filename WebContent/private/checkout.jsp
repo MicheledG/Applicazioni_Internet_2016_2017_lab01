@@ -1,3 +1,6 @@
+<%@page import="java.io.DataOutputStream"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
 <%@page import="ai_esercitazione_01.controllers.LogoutServlet"%>
 <%@page import="java.util.Collection"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
@@ -9,8 +12,25 @@
 <%
 	CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
 	if (cartService == null) {
-		//internal server error -> cartService should be always present
-		response.sendRedirect(LogoutServlet.URL);
+		//error -> should not be here
+    	String url = request.getScheme() + "://" +
+		request.getServerName() + ":" +
+		request.getServerPort() +
+		request.getContextPath() + "/" +
+		LogoutServlet.URL;
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		//add reuqest header
+		con.setRequestMethod("POST");
+		
+		// Send post request
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.flush();
+		wr.close();
+		
+		return;
 	}
 	Collection<Item> items = cartService.getItems();
 %>

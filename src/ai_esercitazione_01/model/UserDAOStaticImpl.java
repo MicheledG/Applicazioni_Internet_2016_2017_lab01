@@ -30,12 +30,13 @@ public class UserDAOStaticImpl implements UserDAO {
     public User getUser(String username) {
         User u = users.get(username);
 
-        if (u == null) {
-            System.out.println("NOT FOUND " + username);
-            return null;
-        }
-
-        System.out.println("FOUND " + u.getUsername());
+//        if (u == null) {
+//            //System.out.println("NOT FOUND " + username);
+//            return null;
+//        }
+//
+//        //System.out.println("FOUND " + u.getUsername());
+        
         return u;
     }
 
@@ -45,6 +46,7 @@ public class UserDAOStaticImpl implements UserDAO {
 
         if (u == null) {
             System.out.println("NOT FOUND " + user.getUsername());
+            return;
         }
 
         users.remove(u.getUsername());
@@ -55,12 +57,13 @@ public class UserDAOStaticImpl implements UserDAO {
         u.setPassword(user.getPassword());
 
         users.put(u.getUsername(), u);
+        return;
     }
 
     @Override
     public void deleteUser(User user) {
         users.remove(user.getUsername());
-        System.out.println("DELETED " + user.getUsername());
+        //System.out.println("DELETED " + user.getUsername());
     }
 
 }

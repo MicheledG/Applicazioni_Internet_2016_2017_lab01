@@ -33,6 +33,7 @@ public class AuthFilter implements Filter {
    	             HttpServletResponse res = (HttpServletResponse) response;
    	             session.setAttribute(SESSION_ATTRIBUTE_LANDING_URL, ((HttpServletRequest) request).getRequestURI());
    	             res.sendRedirect("../login.jsp");
+   	             return;
             } else {
                 chain.doFilter(request, response);
                 return;

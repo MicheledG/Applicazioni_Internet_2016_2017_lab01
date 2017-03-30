@@ -10,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 /**
  * Servlet implementation class AddToCartServlet
@@ -37,7 +40,25 @@ public class AddToCartServlet extends HttpServlet {
 		CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
 		
 		if(ticketService == null || cartService == null){
-			response.sendRedirect(LogoutServlet.URL);
+			//error -> should not be here
+	    	String url = request.getScheme() + "://" +
+			request.getServerName() + ":" +
+			request.getServerPort() +
+			request.getContextPath() + "/" +
+			LogoutServlet.URL;
+			java.net.URL obj = new java.net.URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+			//add reuqest header
+			con.setRequestMethod("POST");
+			
+			// Send post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.flush();
+			wr.close();
+			
+			return;
 		}
 		
 		
