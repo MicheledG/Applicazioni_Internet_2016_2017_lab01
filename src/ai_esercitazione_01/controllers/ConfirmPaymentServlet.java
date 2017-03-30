@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ConfirmPayementServlet
  */
-@WebServlet("/"+ConfirmPayementServlet.URL)
-public class ConfirmPayementServlet extends HttpServlet {
+@WebServlet("/"+ConfirmPaymentServlet.URL)
+public class ConfirmPaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String URL = "confirm";
 
@@ -24,7 +24,7 @@ public class ConfirmPayementServlet extends HttpServlet {
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     		PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
     		if (ps.doPayment()) {
-    			//if payement was good
+    			//if payment was good
     			CartService cs = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
     			if (cs == null) {
     	            //error -> should not be here
