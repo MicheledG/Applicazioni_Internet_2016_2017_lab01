@@ -15,6 +15,8 @@ public class AppListener implements ServletContextListener, HttpSessionListener 
     public void sessionCreated(HttpSessionEvent arg0) {
         CartService cartService = new CartServiceImpl();
         arg0.getSession().setAttribute(CartService.ATTRIBUTE_NAME, cartService);
+        PaymentService paymentService = new PaymentServiceImpl();
+        arg0.getSession().setAttribute(PaymentService.ATTRIBUTE_NAME, paymentService);
     }
 
     @Override

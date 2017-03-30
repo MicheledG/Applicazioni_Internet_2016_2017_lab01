@@ -3,6 +3,7 @@
 <%@page import="ai_esercitazione_01.model.CartService" %>
 <%@page import="ai_esercitazione_01.model.Item" %>
 <%@page import="ai_esercitazione_01.model.Ticket" %>
+<%@page import="ai_esercitazione_01.controllers.ConfirmPayementServlet" %>
 <%@page import="java.io.DataOutputStream" %>
 <%@page import="java.net.HttpURLConnection" %>
 <%@page import="java.net.URL" %>
@@ -67,7 +68,7 @@
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-        <form action="../<%=EmptyCartServlet.URL%>" method="post">
+        <form action="<%=ConfirmPayementServlet.URL%>" method="post">
             <input class="btn btn-default" type="submit" value="Confirm Payment">
         </form>
     </div>
