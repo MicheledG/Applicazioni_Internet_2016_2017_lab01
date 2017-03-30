@@ -1,4 +1,4 @@
-<%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
+<%@page import="ai_esercitazione_01.controllers.UpdateCartServlet"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
 <%@page import="java.util.List"%>
@@ -50,7 +50,7 @@
 				<td><%=item.getTicket().getType()%></td>
 				<td><%=price%></td>
 				<td>
-					<form action="<%=UpdateQuantitiesServlet.URL%>" method="post">
+					<form action="<%=UpdateCartServlet.URL%>" method="post">
 						<input type="hidden" value="<%=item.getID()%>"/>
 						<button type="submit" class="btn btn-default">-</button>
 						<input name="<%=item.getID()%>" type="text" value="<%=quantity%>">

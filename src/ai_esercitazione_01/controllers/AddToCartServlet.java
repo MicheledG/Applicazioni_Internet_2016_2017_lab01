@@ -39,11 +39,9 @@ public class AddToCartServlet extends HttpServlet {
 		// retrieve information from REQUEST
 		String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
 
-		System.out.println("Trying to add " + ticketID);
-
 		// ckeck if ticketID is a valid ID
 		if (ticketID != null) {			
-			// check if the ticket is already into the cart	
+			// check if it is a new ticket to add to the cart	
 			if (!cartService.containsItem(ticketID)) {
 				// retrieve info about the ticket
 				Ticket newTicket = ticketService.getTicket(ticketID);
@@ -52,6 +50,10 @@ public class AddToCartServlet extends HttpServlet {
 					Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
 					cartService.addItem(newItem);
 				}
+			}
+			else {
+				//the ticket is already into the cart -> increment its quantity
+				cartService.getItem(ticketID).increaseQuantity(1);
 			}
 		}
 

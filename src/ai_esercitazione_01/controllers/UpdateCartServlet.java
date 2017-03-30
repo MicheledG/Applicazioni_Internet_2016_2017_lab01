@@ -58,7 +58,7 @@ public class UpdateCartServlet extends HttpServlet {
 			}
 		}
 		
-		request.getServletContext().getRequestDispatcher("/cart2.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/cart.jsp").forward(request, response);
 	}
 
 }
