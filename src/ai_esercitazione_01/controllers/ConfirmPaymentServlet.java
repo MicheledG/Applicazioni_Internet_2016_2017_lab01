@@ -1,10 +1,11 @@
 package ai_esercitazione_01.controllers;
 
 import java.io.IOException;
-import java.util.Collection;
+
 
 import ai_esercitazione_01.model.CartService;
-import ai_esercitazione_01.model.Item;
+import ai_esercitazione_01.model.CartServiceImpl;
+
 import ai_esercitazione_01.model.PaymentService;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,11 +24,13 @@ public class ConfirmPaymentServlet extends HttpServlet {
 
        
     	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		HttpSession s = request.getSession();
-    		PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
-    		if (ps.doPayment()) {
-    			synchronized(s) {
-    				CartService cs = (CartService) s.getAttribute(CartService.ATTRIBUTE_NAME);
+    		HttpSession session = request.getSession();
+    		synchronized(session) {
+    			
+    			PaymentService ps = (PaymentService) session.getAttribute(PaymentService.ATTRIBUTE_NAME);
+	    		if (ps.doPayment()) {
+    			
+    				CartService cs = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
     				if (cs == null) {
     					//error -> should not be here
     					request.getSession().invalidate();
@@ -36,42 +39,17 @@ public class ConfirmPaymentServlet extends HttpServlet {
     					return;
     				}
     			
-    				Collection<Item> items = cs.getItems();
-    				//make the cart empty
-    				for (Item item : items) {
-    					cs.removeItem(item.getID());
-    				}
-    			}
-    			response.sendRedirect("private/confirm.jsp");    			
+    				CartService cartServiceEmpty = new CartServiceImpl();
+    	            session.setAttribute(CartService.ATTRIBUTE_NAME, cartServiceEmpty);    
+	    		}
+//	    		else {
+//	    			//doPayment is always successful
+//	    			response.sendRedirect("private/checkout.jsp");
+//	    		}
     		}
     		
-    		else {
-    			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
-    			response.sendRedirect("private/checkout.jsp");
-    		}
-    		/*PaymentService ps = (PaymentService) request.getSession().getAttribute(PaymentService.ATTRIBUTE_NAME);
-    		if (ps.doPayment()) {
-    			//if payment was good
-    			CartService cs = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
-    			if (cs == null) {
-    	            //error -> should not be here
-    	            request.getSession().invalidate();
-    	            request.getSession(true);
-    	            request.getRequestDispatcher("index.jsp").forward(request, response);
-    	            return;
-    	        }
-
-    	        Collection<Item> items = cs.getItems();
-    	        //make the cart empty
-    	        for (Item item : items) {
-    	                cs.removeItem(item.getID());
-    	        }
-    	        response.sendRedirect("private/confirm.jsp");    			
-    		}
-    		else {
-    			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
-    			response.sendRedirect("private/checkout.jsp");
-    		}*/
-	}
+    		response.sendRedirect("private/confirm.jsp");		
+    		
+    	}
 
 }
