@@ -53,7 +53,7 @@
 			%>
 			<tr>
 				<td><%=ticket.getType()%></td>
-				<td><%=String.format("%1$.2f",price) %></td>
+				<td><%=String.format("%1$.2f",price)%> EUR</td>
 				<td>
 					<select name="<%=UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
 						<%
@@ -89,7 +89,14 @@
 		</div>
 		<div class="col-md-4">
 			<input class="btn btn-default" type="submit" value="Update Cart">
-			<a class="btn btn-default" href="private/checkout.jsp">Checkout</a>
+			<%
+			if(total != 0) {
+				//there is at least one item to buy
+			%>
+				<a class="btn btn-default" href="private/checkout.jsp">Checkout</a>
+			<%
+			}
+			%>
 		</div>
 	</div>
 	

@@ -61,7 +61,7 @@
 		%>
 		<tr>
 			<td><%=ticket.getType()%></td>
-			<td><%=price%></td>
+			<td><%=String.format("%1$.2f",price)%> EUR</td>
 			<td><%=quantity%></td>
 			<td><%=String.format("%1$.2f",itemPrice)%> EUR</td>
 		</tr>
