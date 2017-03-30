@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
     				}
     				else {
     					//all ok, the Servlet set the Session Attribute "user" containing the User just logged
-    					request.getSession().setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
+    					s.setAttribute(LoginServlet.SESSION_ATTRIBUTE_USER, loggedUser);
     					String landingUrl = (String) request.getSession().getAttribute(AuthFilter.SESSION_ATTRIBUTE_LANDING_URL);
     					if (landingUrl != null) {
     						response.sendRedirect(landingUrl);
