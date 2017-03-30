@@ -68,7 +68,7 @@
     <div class="col-md-4">
     </div>
     <div class="col-md-4">
-        <form action="<%=ConfirmPaymentServlet.URL%>" method="post">
+        <form action="../<%=ConfirmPaymentServlet.URL%>" method="post">
             <input class="btn btn-default" type="submit" value="Confirm Payment">
         </form>
     </div>

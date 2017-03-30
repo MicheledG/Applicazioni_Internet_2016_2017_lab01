@@ -39,11 +39,11 @@ public class ConfirmPaymentServlet extends HttpServlet {
     	        for (Item item : items) {
     	                cs.removeItem(item.getID());
     	        }
-    	        response.sendRedirect("/private/confirm.jsp");    			
+    	        response.sendRedirect("private/confirm.jsp");    			
     		}
     		else {
     			//NON SO COSA FARE SE NON VA A BUON FINE, INVENTATE QUALCOSA :)
-    			response.sendRedirect("/private/checkout.jsp");
+    			response.sendRedirect("private/checkout.jsp");
     		}
 	}
 
