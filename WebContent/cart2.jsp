@@ -1,5 +1,5 @@
+<%@page import="ai_esercitazione_01.controllers.UpdateCartServlet"%>
 <%@page import="java.util.Collection"%>
-<%@page import="ai_esercitazione_01.controllers.UpdateQuantitiesServlet"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet"%>
 <%@page import="ai_esercitazione_01.model.*"%>
 <%@page import="java.util.List"%>
@@ -19,7 +19,7 @@
 <h2 class="text-left">My Cart</h2>
 
 
-<form action="<%=UpdateQuantitiesServlet.URL%>" method="post">
+<form action="<%=UpdateCartServlet.URL%>" method="post">
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -45,9 +45,9 @@
 				<td><%=ticket.getType()%></td>
 				<td><%=String.format("%1$.2f",price) %></td>
 				<td>
-					<select name="<%=UpdateQuantitiesServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
+					<select name="<%=UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID()%>">
 						<%
-						for(i = 0; i <= 100; i++) {
+						for(i = UpdateCartServlet.MIN_QUANTITY; i <= UpdateCartServlet.MAX_QUANTITY; i++) {
 							if(i == quantity){
 							%>								
 								<option value="<%=i %>" selected><%=i %></option>

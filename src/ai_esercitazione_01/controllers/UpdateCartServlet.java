@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import ai_esercitazione_01.model.CartService;
 import ai_esercitazione_01.model.Item;
 
-@WebServlet("/" + UpdateQuantitiesServlet.URL)
-public class UpdateQuantitiesServlet extends HttpServlet {
+@WebServlet("/" + UpdateCartServlet.URL)
+public class UpdateCartServlet extends HttpServlet {
 	
-	public static final String URL = "UpdateQuantitiesServlet";
+	public static final String URL = "updateCart";
 	
 	public static final String POST_PARAMETER_ITEM_QUANTITY = "quantity";
+	
+	public static final int MIN_QUANTITY = 0;
+	public static final int MAX_QUANTITY = 100;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -31,23 +34,27 @@ public class UpdateQuantitiesServlet extends HttpServlet {
 		
 		// retrieve quantity of each ticket contained into the post parameters
 		for(Item item : items){
-			String quantity = request.getParameter(UpdateQuantitiesServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID());
+			String quantity = request.getParameter(UpdateCartServlet.POST_PARAMETER_ITEM_QUANTITY+item.getID());
 			if(quantity!=null){
 				try{
 					int intQuantity = Integer.parseInt(quantity); 
-					if(intQuantity == 0){
-						cartService.removeItem(item.getID());
+					if(intQuantity < UpdateCartServlet.MIN_QUANTITY || intQuantity > UpdateCartServlet.MAX_QUANTITY){
+						//wrong quantity value
 					}
+					else if(intQuantity == 0){
+						cartService.removeItem(item.getID());
+					} 
 					else{
 						item.setQuantity(intQuantity);
 					}
 				}catch (NumberFormatException e) {
-					// TODO: handle exception
+					//ignore the quantity for this item
+					continue;
 				}
 			}
 			else {
-				//TODO
-				//missing item into the ticket
+				//missing item quantity within the request, remove the item
+				cartService.removeItem(item.getID());
 			}
 		}
 		
