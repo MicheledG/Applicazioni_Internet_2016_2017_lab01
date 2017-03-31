@@ -1,6 +1,6 @@
 NOME        COGNOME         MATRICOLA
 
 Francesco   Longo           (223428)
-Michele     Di Girolamno    (231050)
+Michele     Di Girolamo     (231050)
 Pietro      Fardella        (231514)
 Thomas      Vitale          (231669)
