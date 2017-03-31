@@ -22,11 +22,11 @@ public class TicketDAOStaticImpl implements TicketDAO {
         ticket2.setDescription("It allows a single ride on a bus within the first city-ring area");
         ticket2.setValidity(120);
         ticket2.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_MIN);
-        
+
         ticket3.setDescription("It allows multiple rides in a day on a bus within the city area");
         ticket3.setValidity(1);
         ticket3.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_DAY);
-        
+
         ticket4.setDescription("It allows multiple rides in a week on a bus within the city area");
         ticket4.setValidity(7);
         ticket4.setValidityTimeUnit(Ticket.VALIDITY_TIME_UNIT_DAY);

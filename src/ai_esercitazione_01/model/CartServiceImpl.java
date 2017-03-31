@@ -47,9 +47,9 @@ public class CartServiceImpl implements CartService {
         return itemMap.containsKey(ticketId);
     }
 
-	@Override
-	public Item getItem(String ticketId) {
-		return itemMap.get(ticketId);
-	}
+    @Override
+    public Item getItem(String ticketId) {
+        return itemMap.get(ticketId);
+    }
 
 }

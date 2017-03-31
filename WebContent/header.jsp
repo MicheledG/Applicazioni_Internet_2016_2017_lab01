@@ -1,26 +1,23 @@
-<%@page import="java.io.DataOutputStream"%>
-<%@page import="java.net.URL"%>
-<%@page import="java.net.HttpURLConnection"%>
 <%@page import="ai_esercitazione_01.controllers.LoginServlet" %>
 <%@page import="ai_esercitazione_01.controllers.LogoutServlet" %>
 <%@page import="ai_esercitazione_01.model.CartService" %>
-<%@page import="ai_esercitazione_01.model.User" %>
 <%@page import="ai_esercitazione_01.model.Item" %>
+<%@page import="ai_esercitazione_01.model.User" %>
 <%
 
     CartService cartService = (CartService) request.getSession().getAttribute(CartService.ATTRIBUTE_NAME);
     int itemCount = 0;
     if (cartService == null) {
         //error -> should not be here
-    	request.getSession().invalidate();
+        request.getSession().invalidate();
         request.getSession(true);
         request.getRequestDispatcher("index.jsp").forward(request, response);
         return;
     } else {
-    	// updated
-    	for (Item item : cartService.getItems()) {
-    		itemCount += item.getQuantity();
-    	}
+        // updated
+        for (Item item : cartService.getItems()) {
+            itemCount += item.getQuantity();
+        }
     }
 
     //check if there is a user logged-in
@@ -74,11 +71,14 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="${pageContext.request.contextPath}/index.jsp"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/cart.jsp"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Cart
+            <li><a href="${pageContext.request.contextPath}/index.jsp"><span class="glyphicon glyphicon-home"
+                                                                             aria-hidden="true"></span> Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/cart.jsp"><span class="glyphicon glyphicon-shopping-cart"
+                                                                            aria-hidden="true"></span> Cart
                 (<%=itemCount %>)</a></li>
             <li>
-                <form action="${pageContext.request.contextPath}/<%=urlLoginLogout %>" method="<%=method%>" style="padding-top: 8px;">
+                <form action="${pageContext.request.contextPath}/<%=urlLoginLogout %>" method="<%=method%>"
+                      style="padding-top: 8px;">
                     <button type="submit" class="btn btn-link">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <%=messageLoginLogout%>

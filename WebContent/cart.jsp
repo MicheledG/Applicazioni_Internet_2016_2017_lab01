@@ -1,28 +1,28 @@
+<%@page import="ai_esercitazione_01.controllers.EmptyCartServlet" %>
 <%@page import="ai_esercitazione_01.controllers.UpdateCartServlet" %>
 <%@page import="ai_esercitazione_01.model.CartService" %>
 <%@page import="ai_esercitazione_01.model.Item" %>
 <%@page import="ai_esercitazione_01.model.Ticket" %>
-<%@page import="java.util.Collection" %>
-<%@ page import="ai_esercitazione_01.controllers.EmptyCartServlet" %>
+<%@ page import="java.util.Collection" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <%
-    
-CartService cartService;
-synchronized(session){
 
-	cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
-    if (cartService == null) {
-        //internal server error -> cartService should be always present
-        request.getSession().invalidate();
-        request.getSession(true);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-        return;
+    CartService cartService;
+    synchronized (session) {
 
-    }
-    
-    Collection<Item> items = cartService.getItems();
+        cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
+        if (cartService == null) {
+            //internal server error -> cartService should be always present
+            request.getSession().invalidate();
+            request.getSession(true);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+            return;
+
+        }
+
+        Collection<Item> items = cartService.getItems();
 
 %>
 
@@ -107,7 +107,7 @@ synchronized(session){
 </form>
 
 <%
-} //closing synchronized
+    } //closing synchronized
 %>
 
 

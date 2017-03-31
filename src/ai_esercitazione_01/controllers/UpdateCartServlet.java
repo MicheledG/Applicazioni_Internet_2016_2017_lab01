@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.Collection;
 
@@ -29,12 +28,12 @@ public class UpdateCartServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    	HttpSession session = request.getSession();
-    	// retrieve information from SESSION
+
+        HttpSession session = request.getSession();
+        // retrieve information from SESSION
         synchronized (session) {
-        	
-        	CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
+
+            CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
 
             if (cartService == null) {
                 //error -> should not be here
@@ -68,9 +67,9 @@ public class UpdateCartServlet extends HttpServlet {
                     cartService.removeItem(item.getID());
                 }
             }
-        	
-		}
-    	
+
+        }
+
 
         request.getServletContext().getRequestDispatcher("/cart.jsp").forward(request, response);
     }

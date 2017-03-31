@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 
@@ -21,62 +20,61 @@ import java.io.IOException;
 @WebServlet("/" + AddToCartServlet.URL)
 public class AddToCartServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	private static final int DEFAULT_NEW_QUANTITY = 1;
+    private static final long serialVersionUID = 1L;
+    private static final int DEFAULT_NEW_QUANTITY = 1;
 
-	public static final String URL = "addTicket";
-	public static final String POST_PARAMETER_NAME_TICKET_ID = "ticketID";
+    public static final String URL = "addTicket";
+    public static final String POST_PARAMETER_NAME_TICKET_ID = "ticketID";
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		// retrieve information from CONTEXT
-		TicketService ticketService = (TicketService) request.getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
-		
-		//TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
-		HttpSession session = request.getSession();
-		//OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
-		synchronized(session){
-			
-			// retrieve information from SESSION
-			CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
-			
-			if(ticketService == null || cartService == null){
-				//error -> should not be here
-				session.invalidate();
-		        request.getSession(true);
-		        request.getRequestDispatcher("index.jsp").forward(request, response);			
-				return;
-			}
-			
-			// retrieve information from REQUEST
-			String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
+        // retrieve information from CONTEXT
+        TicketService ticketService = (TicketService) request.getServletContext().getAttribute(TicketService.ATTRIBUTE_NAME);
 
-			// ckeck if ticketID is a valid ID
-			if (ticketID != null) {			
-				// check if it is a new ticket to add to the cart	
-				if (!cartService.containsItem(ticketID)) {
-					// retrieve info about the ticket
-					Ticket newTicket = ticketService.getTicket(ticketID);
-					if (newTicket != null) {
-						// insert a new item with this ticket into the cart
-						Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
-						cartService.addItem(newItem);
-					}
-				}
-				else {
-					//the ticket is already into the cart -> increment its quantity
-					cartService.getItem(ticketID).increaseQuantity(1);
-				}
-			}
-			
-		}
-		
-		request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-	}
+        //TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
+        HttpSession session = request.getSession();
+        //OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
+        synchronized (session) {
+
+            // retrieve information from SESSION
+            CartService cartService = (CartService) session.getAttribute(CartService.ATTRIBUTE_NAME);
+
+            if (ticketService == null || cartService == null) {
+                //error -> should not be here
+                session.invalidate();
+                request.getSession(true);
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                return;
+            }
+
+            // retrieve information from REQUEST
+            String ticketID = request.getParameter(AddToCartServlet.POST_PARAMETER_NAME_TICKET_ID);
+
+            // ckeck if ticketID is a valid ID
+            if (ticketID != null) {
+                // check if it is a new ticket to add to the cart
+                if (!cartService.containsItem(ticketID)) {
+                    // retrieve info about the ticket
+                    Ticket newTicket = ticketService.getTicket(ticketID);
+                    if (newTicket != null) {
+                        // insert a new item with this ticket into the cart
+                        Item newItem = new Item(newTicket, AddToCartServlet.DEFAULT_NEW_QUANTITY);
+                        cartService.addItem(newItem);
+                    }
+                } else {
+                    //the ticket is already into the cart -> increment its quantity
+                    cartService.getItem(ticketID).increaseQuantity(1);
+                }
+            }
+
+        }
+
+        request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+    }
 
 }

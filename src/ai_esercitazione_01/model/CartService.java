@@ -15,7 +15,7 @@ public interface CartService {
     public void modifyItem(String ticketId, int quantity);
 
     public Item getItem(String ticketId);
-    
+
     public Collection<Item> getItems();
 
     public Integer getItemCount();

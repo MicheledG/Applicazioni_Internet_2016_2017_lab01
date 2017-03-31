@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 /**
@@ -19,16 +18,16 @@ public class LogoutServlet extends HttpServlet {
     public static final String URL = "logout";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-    	//TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
-		HttpSession session = request.getSession();
-		//OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
-    	synchronized (session) { //should be an atomic operation
-       		session.invalidate();
-    		request.getSession(true);
+
+        //TODO: SYNCHRONIZATION RIGHT HERE IS A PROBLEM
+        HttpSession session = request.getSession();
+        //OTHER THREADS CAN INVALIDATE THE SESSION IN THIS PHASE
+        synchronized (session) { //should be an atomic operation
+            session.invalidate();
+            request.getSession(true);
             request.getRequestDispatcher("index.jsp").forward(request, response);
-    	}
-    
+        }
+
     }
 
 }

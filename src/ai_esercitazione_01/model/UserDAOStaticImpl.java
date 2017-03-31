@@ -36,7 +36,7 @@ public class UserDAOStaticImpl implements UserDAO {
 //        }
 //
 //        //System.out.println("FOUND " + u.getUsername());
-        
+
         return u;
     }
 

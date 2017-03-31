@@ -4,8 +4,8 @@ public class Ticket {
 
     public static final String VALIDITY_TIME_UNIT_MIN = "minutes";
     public static final String VALIDITY_TIME_UNIT_DAY = "days";
-	
-	private String ID;
+
+    private String ID;
     private String type;
     private String description;
     private int validity;
@@ -60,12 +60,12 @@ public class Ticket {
         this.validity = validity;
     }
 
-	public String getValidityTimeUnit() {
-		return validityTimeUnit;
-	}
+    public String getValidityTimeUnit() {
+        return validityTimeUnit;
+    }
 
-	public void setValidityTimeUnit(String validityTimeUnit) {
-		this.validityTimeUnit = validityTimeUnit;
-	}
+    public void setValidityTimeUnit(String validityTimeUnit) {
+        this.validityTimeUnit = validityTimeUnit;
+    }
 
 }
